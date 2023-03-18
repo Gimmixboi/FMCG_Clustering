@@ -27,7 +27,13 @@ if clean is "Yes":
     df.drop_duplicates(inplace=True)
     df.drop(['CustomerID'], axis=1,inplace=True)
     st.write("Uploaded file:")
+    le = LabelEncoder()
+    df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
+    df['Channel'] = le.fit_transform(df['Channel'])
+    df['SKU'] = le.fit_transform(df['SKU'])
+    df['Product_type'] = le.fit_transform(df['Product_type'])
     st.write(df.head())
+    st.write(df.dtypes)
 else: 
     st.write("Warning:")
     st.warning("Please Cleansing data first at setting plane")
