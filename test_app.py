@@ -15,14 +15,11 @@ uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"
 # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
 if uploaded_file is None:
     st.warning("Please upload a file.")
-    st.write("Uploaded file:", uploaded_file.type)
+    st.write("Uploaded file:")
     try:
         df = pd.read_excel(uploaded_file, sheet_name=None)
     except Exception as e:
         print(e)
         df = pd.read_csv(uploaded_file)
-try:
-    st.write(df.head())
-except Exception as e:
-        print(e)
-        st.write("Please upload a file.")
+
+st.write(df.head())
