@@ -47,14 +47,16 @@ else:
                 model = KMeans(n_clusters=i, init='k-means++', random_state=0)
                 model.fit(df.values)
                 wcss.append(model.inertia_)
-            st.plt.plot(range(1, 10), wcss)
-            st.plt.title('The Elbow Method')
-            st.plt.xlabel('Number of clusters')
-            st.plt.ylabel('WCSS')
+            fig, ax = plt.subplots()
+            ax.plot(range(1, 10), wcss)
+            ax.set_title('The Elbow Method')
+            ax.set_xlabel('Number of clusters')
+            ax.set_ylabel('WCSS')
+            st.pyplot(fig)
         else:
             st.write("Warning:")
             st.warning("Please find proper K and re-modeling")
     else: 
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
-        
+
