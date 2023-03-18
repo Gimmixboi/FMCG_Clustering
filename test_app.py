@@ -12,36 +12,36 @@ from sklearn.preprocessing import StandardScaler
 # st.sidebar.title("Setting Plane")
 st.title("Clustering Model with K-Means on Web-Application 💻")
 
- def run_clustering(df, n_clusters):    
-     df.dropna(inplace=True)
-     df.drop_duplicates(inplace=True)
-     df.drop(['CustomerID','Document Date'], axis=1,inplace=True)
-     le = LabelEncoder()
-     df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
-     df['Channel'] = le.fit_transform(df['Channel'])
-     df['SKU'] = le.fit_transform(df['SKU'])
-     df['Product_type'] = le.fit_transform(df['Product_type'])
-     df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
-     df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
-     st.write("Cleaned Dataset:")
-     st.write(df.head())
-     st.write(f"Data have {df.shape[0]} rows")
- #         st.write(df.dtypes)
- #         if st.button('Step2 : Plotting WCSSS Graph'):
-     st.write("⏰ Program is Running  ,  Please wait.....") 
-     kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-     model = kmeans.fit(df)
-     score = silhouette_score(df, model.labels_)
-     # plot clusters
-     fig = plt.figure(figsize=(10, 10))
-     plt.scatter(df.iloc[:, 0], df.iloc[:, 1], c=model.labels_)
-     plt.title('Clusters')
-     plt.xlabel('Feature 1')
-     plt.ylabel('Feature 2')
+def run_clustering(df, n_clusters):    
+    df.dropna(inplace=True)
+    df.drop_duplicates(inplace=True)
+    df.drop(['CustomerID','Document Date'], axis=1,inplace=True)
+    le = LabelEncoder()
+    df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
+    df['Channel'] = le.fit_transform(df['Channel'])
+    df['SKU'] = le.fit_transform(df['SKU'])
+    df['Product_type'] = le.fit_transform(df['Product_type'])
+    df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
+    df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
+    st.write("Cleaned Dataset:")
+    st.write(df.head())
+    st.write(f"Data have {df.shape[0]} rows")
+#         st.write(df.dtypes)
+#         if st.button('Step2 : Plotting WCSSS Graph'):
+    st.write("⏰ Program is Running  ,  Please wait.....") 
+    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+    model = kmeans.fit(df)
+    score = silhouette_score(df, model.labels_)
+    # plot clusters
+    fig = plt.figure(figsize=(10, 10))
+    plt.scatter(df.iloc[:, 0], df.iloc[:, 1], c=model.labels_)
+    plt.title('Clusters')
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
 
-     # save plot and return score
-     st.pyplot(fig)
-     return score
+    # save plot and return score
+    st.pyplot(fig)
+    return score
 
 def main():
     # อัพโหลดไฟล์ csv
