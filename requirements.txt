@@ -3,3 +3,4 @@ matplotlib==3.7.1
 sklearn-pandas==2.2.0
 openpyxl==3.0.10
 xlrd==2.0.1
+scikit-learn==1.2.2
