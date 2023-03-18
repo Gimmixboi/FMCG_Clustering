@@ -2,3 +2,4 @@ pandas==1.4.4
 matplotlib==3.7.1
 sklearn-pandas==2.2.0
 openpyxl==3.0.10
+xlrd==2.0.1
