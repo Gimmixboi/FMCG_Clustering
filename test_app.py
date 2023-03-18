@@ -7,11 +7,10 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import silhouette_score
 
 
-    st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
+#     st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
   
 
 
-    run_clustering():
     st.sidebar.title("Clustering Model with K-Means")
     # อัพโหลดไฟล์ csv
     uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
