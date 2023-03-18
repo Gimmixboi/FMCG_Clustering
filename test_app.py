@@ -25,15 +25,16 @@ else:
     if st.button('Make data to clean🧹'):
         df.dropna(inplace=True)
         df.drop_duplicates(inplace=True)
-        df.drop(['CustomerID'], axis=1,inplace=True)
+        df.drop(['CustomerID','Document Date'], axis=1,inplace=True)
         st.write("Uploaded file:")
         le = LabelEncoder()
         df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
         df['Channel'] = le.fit_transform(df['Channel'])
         df['SKU'] = le.fit_transform(df['SKU'])
         df['Product_type'] = le.fit_transform(df['Product_type'])
-        df['Document Date'] = pd.to_numeric(pd.to_datetime(df['Document Date']))
+        df[df.select_dtypes(exclude=['float'])].astype('integer')
         st.write(df.head())
+        st.write(df.shape[0])
         st.write(df.dtypes)
     else: 
         st.write("Warning:")
