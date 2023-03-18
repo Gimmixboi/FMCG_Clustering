@@ -40,7 +40,7 @@ else:
         st.write("Cleaned Dataset:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
-        st.write(df.dtypes)
+#         st.write(df.dtypes)
         if st.button('Step2 : Plotting WCSSS Graph'):
             wcss = []
             for i in range(1, 10):
