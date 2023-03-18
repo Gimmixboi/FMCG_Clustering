@@ -22,7 +22,7 @@ else:
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
 clean = st.sidebar.radio("Make data to clean?",
  ('No', 'Yes'))
-st.sidebar.checkbox("Is this cool or what?", key=key)
+st.sidebar.checkbox("Is this cool or what?")
 if clean is "Yes":
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
