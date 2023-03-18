@@ -50,7 +50,7 @@ else:
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("WCSS Graph for find proper K and re-modeling")
-        st.pyplot.figure(figsize=(4, 3))
+        st.pyplot.savefig(fig, dpi=100, bbox_inches='tight')
         ax.plot(range(1, 10), wcss)
         ax.set_title('The Elbow Method')
         ax.set_xlabel('Number of clusters')
