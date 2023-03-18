@@ -59,6 +59,9 @@ else:
 #         else:
 #             st.write("Warning:")
 #             st.warning("Please find proper K and re-modeling")
+        n_clusters = st.slider('Number of clusters', 2, 10, 4)
+        model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
+        model.fit(df.values)
     else: 
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
