@@ -22,7 +22,7 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
-    if st.button('Make data to clean🧹')
+    if st.button('Make data to clean🧹'):
         df.dropna(inplace=True)
         df.drop_duplicates(inplace=True)
         df.drop(['CustomerID'], axis=1,inplace=True)
@@ -39,7 +39,7 @@ else:
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
 
- if st.button('Plotting Graph') 
+ if st.button('Plotting Graph'):
     wcss = []
     for i in range(1, 10):
         model = KMeans(n_clusters=i, init='k-means++', random_state=0)
