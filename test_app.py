@@ -15,6 +15,7 @@ uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"
 
 # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
 if uploaded_file is None:
+    st.write("Warning:")
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
@@ -27,4 +28,5 @@ if clean is "Yes":
     st.write("Uploaded file:")
     st.write(df.head())
 else: 
+    st.write("Warning:")
     st.warning("Please Cleansing data first")
