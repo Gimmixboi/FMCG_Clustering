@@ -18,13 +18,13 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
-    st.write("Uploaded file:")
     clean = st.radio("Make data to clean?",
      ('Yes', 'No'))
-    if clean is Yes:
+    if clean is "Yes":
         df.dropna(inplace=True)
         df.drop_duplicates(inplace=True)
         df.drop(['CustomerID'], axis=1,inplace=True)
+        st.write("Uploaded file:")
         st.write(df.head())
     else: 
         st.write("nvm")
