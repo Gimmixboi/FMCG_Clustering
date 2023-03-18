@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
 st.title("Clustering Model with K-Means on Web-Application 💻")
-# clean = st.sidebar.checkbox("Make data to clean🧹")
+
 # อัพโหลดไฟล์ csv
 uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
 
@@ -22,6 +22,7 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
+    #คลีนข้อมูล
     if st.button('Make data to clean🧹'):
         df.dropna(inplace=True)
         df.drop_duplicates(inplace=True)
@@ -32,11 +33,8 @@ else:
         df['Channel'] = le.fit_transform(df['Channel'])
         df['SKU'] = le.fit_transform(df['SKU'])
         df['Product_type'] = le.fit_transform(df['Product_type'])
-        df['Order Quantity (Item)'] = pd.to_numeric(df['Order Quantity (Item)'], errors='coerce')
-        df['Order Quantity (Item)'].astype('int64')
-        df['Total Value'] = pd.to_numeric(df['Order Quantity (Item)'], errors='coerce')
-        df['Total Value'].astype('int64')
-         
+        df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
+        df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
         st.write(df.head())
         st.write("Data have "+df.shape[0]+" rows")
         st.write(df.dtypes)
@@ -44,7 +42,7 @@ else:
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
 
-#  if st.button('Plotting Graph'):
+if st.button('Plotting Graph'):
     wcss = []
     for i in range(1, 10):
         model = KMeans(n_clusters=i, init='k-means++', random_state=0)
@@ -54,5 +52,5 @@ else:
     plt.title('The Elbow Method')
     plt.xlabel('Number of clusters')
     plt.ylabel('WCSS')
-#  else:
-#     st.write("Warning:")
+else:
+    st.write("Warning:")
