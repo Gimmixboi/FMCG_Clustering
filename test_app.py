@@ -22,12 +22,13 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
+    st.write("Uploaded file:")
+    st.write(df.head())
     #คลีนข้อมูล
     if st.button('Make data to clean🧹'):
         df.dropna(inplace=True)
         df.drop_duplicates(inplace=True)
         df.drop(['CustomerID','Document Date'], axis=1,inplace=True)
-        st.write("Uploaded file:")
         le = LabelEncoder()
         df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
         df['Channel'] = le.fit_transform(df['Channel'])
@@ -35,8 +36,9 @@ else:
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
+        st.write("Cleaned Dataset")
         st.write(df.head())
-        st.write(f"Data have {data.shape[0]} rows")
+        st.write(f"Data have {df.shape[0]} rows")
         st.write(df.dtypes)
     else: 
         st.write("Warning:")
