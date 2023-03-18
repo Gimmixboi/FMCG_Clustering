@@ -19,11 +19,12 @@ if uploaded_file is None:
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
     st.write("Uploaded file:")
-    clean = st.radio(
-     "What's your favorite movie genre",
-     ('Comedy', 'Drama', 'Documentary'))
-    st.write(df.head())
-    df.dropna(inplace=True)
-    df.drop_duplicates(inplace=True)
-    df.drop(['CustomerID'], axis=1,inplace=True)
-    st.write(df.head())
+    clean = st.radio("Make data to clean?",
+     ('Yes', 'No'))
+    if clean is Yes:
+        df.dropna(inplace=True)
+        df.drop_duplicates(inplace=True)
+        df.drop(['CustomerID'], axis=1,inplace=True)
+        st.write(df.head())
+    else: 
+        st.write("nvm")
