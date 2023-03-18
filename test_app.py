@@ -18,6 +18,7 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
+    clean = "0"
     clean = st.radio("Make data to clean?",
      ('Yes', 'No'))
     if clean is "Yes":
