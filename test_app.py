@@ -32,7 +32,9 @@ else:
         df['Channel'] = le.fit_transform(df['Channel'])
         df['SKU'] = le.fit_transform(df['SKU'])
         df['Product_type'] = le.fit_transform(df['Product_type'])
+        df['Order Quantity (Item)'] = pd.to_numeric(df['Order Quantity (Item)'], errors='coerce')
         df['Order Quantity (Item)'].astype('int64')
+        df['Total Value'] = pd.to_numeric(df['Order Quantity (Item)'], errors='coerce')
         df['Total Value'].astype('int64')
          
         st.write(df.head())
