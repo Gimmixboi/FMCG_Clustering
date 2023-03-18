@@ -39,7 +39,7 @@ else:
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
 
- if st.button('Plotting Graph'):
+#  if st.button('Plotting Graph'):
     wcss = []
     for i in range(1, 10):
         model = KMeans(n_clusters=i, init='k-means++', random_state=0)
@@ -49,5 +49,5 @@ else:
     plt.title('The Elbow Method')
     plt.xlabel('Number of clusters')
     plt.ylabel('WCSS')
- else:
-    st.write("Warning:")
+#  else:
+#     st.write("Warning:")
