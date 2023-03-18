@@ -17,4 +17,4 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
     st.write("Uploaded file:")
     df = pd.read_excel(uploaded_file, sheet_name=None)
-     st.dataframe(df)
+    st.dataframe(df)
