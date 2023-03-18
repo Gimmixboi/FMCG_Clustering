@@ -50,7 +50,7 @@ else:
             st.plt.plot(range(1, 10), wcss)
             st.plt.title('The Elbow Method')
             st.plt.xlabel('Number of clusters')
-            st.plt.ylabel('WCSS'))
+            st.plt.ylabel('WCSS')
         else:
             st.write("Warning:")
             st.warning("Please find proper K and re-modeling")
