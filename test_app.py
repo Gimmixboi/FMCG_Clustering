@@ -42,7 +42,7 @@ else:
         st.write(f"Data have {df.shape[0]} rows")
 #         st.write(df.dtypes)
 #         if st.button('Step2 : Plotting WCSSS Graph'):
-        st.write("Program is Running , Please wait.....")  
+        st.write("⏰ Program is Running  ,  Please wait.....")  
         wcss = []
         for i in range(1, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
@@ -59,9 +59,17 @@ else:
 #         else:
 #             st.write("Warning:")
 #             st.warning("Please find proper K and re-modeling")
-        n_clusters = st.slider('Number of clusters', 2, 10, 4)
+        st.write("Please select Number of clusters which find from WCSS graph")
+        n_clusters = st.slider('Number of clusters', 1, 10, 2)
         model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
         model.fit(df.values)
+        labels = model.labels_
+        fig = plt.figure(figsize=(10, 10))
+        plt.scatter(data.iloc[:, 0], data.iloc[:, 1], c=labels)
+        plt.title('Clusters')
+        plt.xlabel('Feature 1')
+        plt.ylabel('Feature 2')
+        st.pyplot(fig)
     else: 
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
