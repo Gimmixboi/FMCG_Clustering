@@ -9,8 +9,8 @@ from sklearn.preprocessing import StandardScaler
 
 
 st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
-st.sidebar.title("Setting Plane/n")
-#st.write("Clustering Model with K-Means on Web-Application")
+st.sidebar.title("Setting Plane")
+st.write("Clustering Model with K-Means on Web-Application")
 # อัพโหลดไฟล์ csv
 uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
 
@@ -30,4 +30,4 @@ if clean is "Yes":
     st.write(df.head())
 else: 
     st.write("Warning:")
-    st.warning("Please Cleansing data first")
+    st.warning("Please Cleansing data first at setting plane")
