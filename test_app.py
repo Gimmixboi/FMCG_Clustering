@@ -42,7 +42,7 @@ else:
     wcss = []
     for i in range(1, 10):
         model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-        model.fit(df)
+        model.fit(df.values)
         wcss.append(model.inertia_)
     plt.plot(range(1, 10), wcss)
     plt.title('The Elbow Method')
