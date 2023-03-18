@@ -34,7 +34,6 @@ else:
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Document Date'] = pd.to_numeric(pd.to_datetime(df['Document Date']))
         st.write(df.head())
-        st.write(df.dtypes)
     else: 
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
@@ -43,7 +42,7 @@ else:
     wcss = []
     for i in range(1, 10):
         model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-        model.fit(data)
+        model.fit(df)
         wcss.append(model.inertia_)
     plt.plot(range(1, 10), wcss)
     plt.title('The Elbow Method')
