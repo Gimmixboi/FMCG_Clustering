@@ -17,6 +17,7 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_excel(uploaded_file, sheet_name=None)
+    st.dataframe(df)
     #คลีนข้อมูล
     cols=df.select_dtypes(exclude=['float','datetime']).columns.to_list()
     df[cols]=df[cols].astype('category')
@@ -26,5 +27,5 @@ else:
     df.dropna(inplace=True)
     
     st.write("Uploaded file:")
-#     st.dataframe(df)
+
 #     st.write(df.head())
