@@ -8,8 +8,8 @@ from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 
 
-st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
-st.sidebar.title("Setting Plane")
+# st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
+# st.sidebar.title("Setting Plane")
 st.title("Clustering Model with K-Means on Web-Application")
 # clean = st.sidebar.checkbox("Make data to clean🧹")
 # อัพโหลดไฟล์ csv
@@ -22,7 +22,7 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
-    clean = st.button('Say hello')
+    clean = st.button('Make data to clean🧹')
 if clean:
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
