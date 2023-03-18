@@ -17,7 +17,7 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else:
     st.write("Uploaded file:", uploaded_file.type)
-    uploaded_file.type == "application/vnd.ms-excel":
+#     uploaded_file.type == "application/vnd.ms-excel"
     df = pd.read_excel(uploaded_file, sheet_name=None)
     sheet_name = list(df.keys())[0]
     df = df[sheet_name]
