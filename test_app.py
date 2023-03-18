@@ -8,7 +8,7 @@ from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 
 # st.write("Clustering Model with K-Means on Web-Application")
-st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
+st.set_page_config(page_title="Setting", page_icon=":clipboard:", layout="wide")
 st.sidebar.title("Clustering Model with K-Means")
 # อัพโหลดไฟล์ csv
 uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
