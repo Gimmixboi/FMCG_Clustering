@@ -20,10 +20,9 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
-clean = st.sidebar.radio("Make data to clean?",
- ('No', 'Yes'))
-st.sidebar.checkbox("Is this cool or what?")
-if clean is "Yes":
+    clean = st.sidebar.checkbox("Make data to clean🧹")
+    
+if clean:
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
     df.drop(['CustomerID'], axis=1,inplace=True)
