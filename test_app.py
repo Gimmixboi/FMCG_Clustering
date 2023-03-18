@@ -22,19 +22,32 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
-    clean = st.button('Make data to clean🧹')
-if clean:
-    df.dropna(inplace=True)
-    df.drop_duplicates(inplace=True)
-    df.drop(['CustomerID'], axis=1,inplace=True)
-    st.write("Uploaded file:")
-    le = LabelEncoder()
-    df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
-    df['Channel'] = le.fit_transform(df['Channel'])
-    df['SKU'] = le.fit_transform(df['SKU'])
-    df['Product_type'] = le.fit_transform(df['Product_type'])
-    st.write(df.head())
-    st.write(df.dtypes)
-else: 
+    if st.button('Make data to clean🧹')
+        df.dropna(inplace=True)
+        df.drop_duplicates(inplace=True)
+        df.drop(['CustomerID'], axis=1,inplace=True)
+        st.write("Uploaded file:")
+        le = LabelEncoder()
+        df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
+        df['Channel'] = le.fit_transform(df['Channel'])
+        df['SKU'] = le.fit_transform(df['SKU'])
+        df['Product_type'] = le.fit_transform(df['Product_type'])
+        df['Document Date'] = pd.to_numeric(pd.to_datetime(df['Document Date']))
+        st.write(df.head())
+        st.write(df.dtypes)
+    else: 
+        st.write("Warning:")
+        st.warning("Please Cleansing data first ")
+
+ if st.button('Plotting Graph') 
+    wcss = []
+    for i in range(1, 10):
+        model = KMeans(n_clusters=i, init='k-means++', random_state=0)
+        model.fit(data)
+        wcss.append(model.inertia_)
+    plt.plot(range(1, 10), wcss)
+    plt.title('The Elbow Method')
+    plt.xlabel('Number of clusters')
+    plt.ylabel('WCSS')
+ else:
     st.write("Warning:")
-    st.warning("Please Cleansing data first ")
