@@ -42,7 +42,7 @@ else:
         st.write(f"Data have {df.shape[0]} rows")
 #         st.write(df.dtypes)
 #         if st.button('Step2 : Plotting WCSSS Graph'):
-        st.write("Program is Running,Please wait.....")  
+        st.write("Program is Running , Please wait.....")  
         wcss = []
         for i in range(1, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
@@ -50,6 +50,7 @@ else:
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("WCSS Graph for find proper K and re-modeling")
+        st.pyplot.figure(figsize=(4, 3))
         ax.plot(range(1, 10), wcss)
         ax.set_title('The Elbow Method')
         ax.set_xlabel('Number of clusters')
