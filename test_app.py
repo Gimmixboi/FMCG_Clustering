@@ -41,10 +41,7 @@ else:
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
         st.write(df.dtypes)
-    else: 
-        st.write("Warning:")
-        st.warning("Please Cleansing data first ")
-        if st.button('Step2:Plotting WCSSS Graph'):
+        if st.button('Step2 : Plotting WCSSS Graph'):
             wcss = []
             for i in range(1, 10):
                 model = KMeans(n_clusters=i, init='k-means++', random_state=0)
@@ -57,3 +54,7 @@ else:
         else:
             st.write("Warning:")
             st.warning("Please find proper K and re-modeling")
+    else: 
+        st.write("Warning:")
+        st.warning("Please Cleansing data first ")
+        
