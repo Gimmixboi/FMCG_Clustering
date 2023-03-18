@@ -36,7 +36,7 @@ else:
         df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
         st.write(df.head())
-        st.write("Data have "+df.shape[0]+" rows")
+        st.write(f"Data have {data.shape[0]} rows")
         st.write(df.dtypes)
     else: 
         st.write("Warning:")
@@ -54,3 +54,4 @@ if st.button('Plotting Graph'):
     plt.ylabel('WCSS')
 else:
     st.write("Warning:")
+    st.warning("Please find proper K and re-modeling")
