@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-RUN pip --no-cache-dir install -r requirements.txt
+# RUN pip --no-cache-dir install -r requirements.txt
 import matplotlib.pyplot as plt 
 
 from sklearn.cluster import KMeans
