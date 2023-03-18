@@ -24,6 +24,7 @@ else:
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
     st.write("Uploaded file:")
     st.write(df.head())
+    st.write(f"Data have {df.shape[0]} rows")
     #คลีนข้อมูล
     if st.button('Make data to clean🧹'):
         df.dropna(inplace=True)
@@ -36,24 +37,23 @@ else:
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
-        st.write("Cleaned Dataset")
+        st.write("Cleaned Dataset:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
         st.write(df.dtypes)
     else: 
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
-
-if st.button('Plotting Graph'):
-    wcss = []
-    for i in range(1, 10):
-        model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-        model.fit(df.values)
-        wcss.append(model.inertia_)
-    plt.plot(range(1, 10), wcss)
-    plt.title('The Elbow Method')
-    plt.xlabel('Number of clusters')
-    plt.ylabel('WCSS')
-else:
-    st.write("Warning:")
-    st.warning("Please find proper K and re-modeling")
+        if st.button('Step2:Plotting WCSSS Graph'):
+            wcss = []
+            for i in range(1, 10):
+                model = KMeans(n_clusters=i, init='k-means++', random_state=0)
+                model.fit(df.values)
+                wcss.append(model.inertia_)
+            plt.plot(range(1, 10), wcss)
+            plt.title('The Elbow Method')
+            plt.xlabel('Number of clusters')
+            plt.ylabel('WCSS')
+        else:
+            st.write("Warning:")
+            st.warning("Please find proper K and re-modeling")
