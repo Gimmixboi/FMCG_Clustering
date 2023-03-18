@@ -32,7 +32,7 @@ else:
         df['Channel'] = le.fit_transform(df['Channel'])
         df['SKU'] = le.fit_transform(df['SKU'])
         df['Product_type'] = le.fit_transform(df['Product_type'])
-        df[df.select_dtypes(exclude=['float'])].astype('integer')
+        df[df.select_dtypes(exclude=['float'])].astype('int64')
         st.write(df.head())
         st.write(df.shape[0])
         st.write(df.dtypes)
