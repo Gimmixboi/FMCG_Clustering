@@ -6,7 +6,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import silhouette_score
 
-st.write("Clustering Model with K-Means on Web-Application")
+# st.write("Clustering Model with K-Means on Web-Application")
 st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 st.sidebar.title("Clustering Model with K-Means")
 # อัพโหลดไฟล์ csv
