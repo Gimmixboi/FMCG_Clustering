@@ -65,7 +65,7 @@ else:
         model.fit(df.values)
         labels = model.labels_
         fig = plt.figure(figsize=(10, 10))
-         st.write("Please select 2 Features to plot scatter graph")
+        st.write("Please select 2 Features to plot scatter graph")
         plt.scatter(data.iloc[:, 0], data.iloc[:, 1], c=labels)
         plt.title('Clusters')
         plt.xlabel('Feature 1')
