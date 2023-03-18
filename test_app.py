@@ -41,21 +41,21 @@ else:
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
 #         st.write(df.dtypes)
-        if st.button('Step2 : Plotting WCSSS Graph'):
-            wcss = []
-            for i in range(1, 10):
-                model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-                model.fit(df.values)
-                wcss.append(model.inertia_)
-            fig, ax = plt.subplots()
-            ax.plot(range(1, 10), wcss)
-            ax.set_title('The Elbow Method')
-            ax.set_xlabel('Number of clusters')
-            ax.set_ylabel('WCSS')
-            st.pyplot(fig)
-        else:
-            st.write("Warning:")
-            st.warning("Please find proper K and re-modeling")
+#         if st.button('Step2 : Plotting WCSSS Graph'):
+        wcss = []
+        for i in range(1, 10):
+            model = KMeans(n_clusters=i, init='k-means++', random_state=0)
+            model.fit(df.values)
+            wcss.append(model.inertia_)
+        fig, ax = plt.subplots()
+        ax.plot(range(1, 10), wcss)
+        ax.set_title('The Elbow Method')
+        ax.set_xlabel('Number of clusters')
+        ax.set_ylabel('WCSS')
+        st.pyplot(fig)
+#         else:
+#             st.write("Warning:")
+#             st.warning("Please find proper K and re-modeling")
     else: 
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
