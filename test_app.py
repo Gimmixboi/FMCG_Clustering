@@ -14,7 +14,7 @@ uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"
 
 # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
 if uploaded_file is not None:
-    if uploaded_file.type == "application/vnd.xlsx":
+    if uploaded_file.type == ".xlsx":
         df = pd.read_excel(uploaded_file, sheet_name=None)
         sheet_name = list(df.keys())[0]
         df = df[sheet_name]
