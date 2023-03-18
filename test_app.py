@@ -13,10 +13,14 @@ st.sidebar.title("Clustering Model with K-Means")
 uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
 
 # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
-if uploaded_file is not None:
-    if uploaded_file.type == ".xlsx":
+if uploaded_file is None:
+    st.warning("Please upload a file.")
+else:
+    st.write("Uploaded file:", uploaded_file.type)
+    if uploaded_file.type == "application/vnd.ms-excel":
         df = pd.read_excel(uploaded_file, sheet_name=None)
         sheet_name = list(df.keys())[0]
         df = df[sheet_name]
     else:
         df = pd.read_csv(uploaded_file)
+    st.write(df.head())
