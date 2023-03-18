@@ -16,7 +16,7 @@ uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"
 if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
-    df = pd.read_csv(uploaded_file)
+    df = pd.read_csv(uploaded_file, encoding='ISO-8859-1)
     st.write("Uploaded file:")
     st.dataframe(df)
     st.write(df.head())
