@@ -11,8 +11,10 @@ from sklearn.preprocessing import StandardScaler
 st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 st.sidebar.title("Setting Plane")
 st.title("Clustering Model with K-Means on Web-Application")
+# clean = st.sidebar.checkbox("Make data to clean🧹")
 # อัพโหลดไฟล์ csv
 uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
+
 
 # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
 if uploaded_file is None:
@@ -20,8 +22,7 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
-    clean = st.sidebar.checkbox("Make data to clean🧹")
-    
+    clean = st.button('Say hello')
 if clean:
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
