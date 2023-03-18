@@ -34,6 +34,7 @@ else:
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Document Date'] = pd.to_numeric(pd.to_datetime(df['Document Date']))
         st.write(df.head())
+        st.write(df.dtypes)
     else: 
         st.write("Warning:")
         st.warning("Please Cleansing data first ")
