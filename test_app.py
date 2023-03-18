@@ -17,7 +17,14 @@ if uploaded_file is None:
     st.warning("Please upload a file.")
 else: 
     df = pd.read_excel(uploaded_file, sheet_name=None)
+    #คลีนข้อมูล
+    cols=df.select_dtypes(exclude=['float','datetime']).columns.to_list()
+    df[cols]=df[cols].astype('category')
+    cols2=df.select_dtypes('float').columns.to_list()
+    df[cols2]=df[cols2].astype('int')
+    df['Document Date'] = pd.to_numeric(pd.to_datetime(data['Document Date']))
+    df.dropna(inplace=True)
+    
     st.write("Uploaded file:")
-    st.dataframe(df)
-    st.write("Head of the file:")
-    st.write(df.head())
+#     st.dataframe(df)
+#     st.write(df.head())
