@@ -11,32 +11,32 @@ st.sidebar.title("Clustering Model with K-Means")
 # อัพโหลดไฟล์ csv
 uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
 
-    # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
-    if uploaded_file is not None:
-        if uploaded_file.type == "application/vnd.ms-excel":
-            df = pd.read_excel(uploaded_file, sheet_name=None)
-            sheet_name = list(df.keys())[0]
-            df = df[sheet_name]
-        else:
-            df = pd.read_csv(uploaded_file)
-     
-    selected_features = st.sidebar.multiselect("Select Features", df.columns)
-
-    if len(selected_features) > 0:
-        X = df[selected_features].values
-        st.write("Data Shape:", X.shape)
+# อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
+if uploaded_file is not None:
+    if uploaded_file.type == "application/vnd.ms-excel":
+        df = pd.read_excel(uploaded_file, sheet_name=None)
+        sheet_name = list(df.keys())[0]
+        df = df[sheet_name]
     else:
-        st.warning("Please select at least one feature.")
+        df = pd.read_csv(uploaded_file)
+     
+selected_features = st.sidebar.multiselect("Select Features", df.columns)
 
-    if st.sidebar.button("Run Clustering"):
-        if len(selected_features) == 0:
-            st.warning("Please select at least one feature.")
-        else:
-            wcss = []
-            for i in range(1, 11):
-                kmeans = KMeans(n_clusters=i, init="k-means++", random_state=42)
-                kmeans.fit(X)
-                wcss.append(kmeans.inertia_)
+if len(selected_features) > 0:
+    X = df[selected_features].values
+    st.write("Data Shape:", X.shape)
+else:
+    st.warning("Please select at least one feature.")
+
+if st.sidebar.button("Run Clustering"):
+    if len(selected_features) == 0:
+        st.warning("Please select at least one feature.")
+    else:
+        wcss = []
+        for i in range(1, 11):
+            kmeans = KMeans(n_clusters=i, init="k-means++", random_state=42)
+            kmeans.fit(X)
+            wcss.append(kmeans.inertia_)
 
             st.set_option("deprecation.showPyplotGlobalUse", False)
             fig, ax = plt.subplots()
