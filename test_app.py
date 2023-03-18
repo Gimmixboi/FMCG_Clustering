@@ -18,5 +18,4 @@ if uploaded_file is None:
 else: 
     df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
     st.write("Uploaded file:")
-    st.dataframe(df)
     st.write(df.head())
