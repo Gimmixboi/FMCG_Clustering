@@ -18,4 +18,6 @@ if uploaded_file is None:
 else: 
     df = pd.read_excel(uploaded_file, sheet_name=None)
     st.write("Uploaded file:")
+    st.dataframe(df)
+    st.write("Head of the file:")
     st.write(df.head())
