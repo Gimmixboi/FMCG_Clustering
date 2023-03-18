@@ -16,10 +16,5 @@ uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"
 if uploaded_file is None:
     st.warning("Please upload a file.")
     st.write("Uploaded file:")
-    try:
-        df = pd.read_excel(uploaded_file, sheet_name=None)
-    except Exception as e:
-        print(e)
-        df = pd.read_csv(uploaded_file)
-
-st.write(df.head())
+    df = pd.read_excel(uploaded_file, sheet_name=None)
+     st.dataframe(df)
