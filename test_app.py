@@ -69,15 +69,15 @@ def main():
         st.write(f"Data have {df.shape[0]} rows")
         cleaned_df = None
         # Clean data
-            if (st.button('Cleansing data',on_click=callback) or st.session_state.button_clicked):
-                cleaned_df = clean_data(df)
-                # clustering
-                if st.button('Run Clustering'):
-                    model, _ = run_clustering(cleaned_df, n_clusters)
-                    score = silhouette_score(cleaned_df, model.labels_)
-                    st.write(f'Silhouette Score: {score:.2f}')
-            else:    
-                st.warning("Please cleansing data first.")
+        if (st.button('Cleansing data',on_click=callback) or st.session_state.button_clicked):
+            cleaned_df = clean_data(df)
+            # clustering
+            if st.button('Run Clustering'):
+                model, _ = run_clustering(cleaned_df, n_clusters)
+                score = silhouette_score(cleaned_df, model.labels_)
+                st.write(f'Silhouette Score: {score:.2f}')
+        else:    
+            st.warning("Please cleansing data first.")
 
 
             
