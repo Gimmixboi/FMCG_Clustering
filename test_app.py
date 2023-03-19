@@ -55,6 +55,7 @@ def graph(df, n_clusters):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
+        return score
 
 
 def main():
