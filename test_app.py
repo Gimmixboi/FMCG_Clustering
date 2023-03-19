@@ -66,12 +66,12 @@ def main():
             cleaned_df = clean_data(df)
             is_cleaned = True
         # clustering
-        if st.button('Run Clustering') and is_cleaned:
+        if st.button('Run Clustering', key="run_clustering_btn") and is_cleaned:
             n_clusters = st.slider('Number of Clusters', 2, 10, 2)
             model = run_clustering(cleaned_df, n_clusters)
             score = silhouette_score(cleaned_df, model.labels_)
             st.write(f'Silhouette Score: {score:.2f}')
-        elif st.button('Run Clustering'):
+        elif st.button('Run Clustering', key="run_clustering_btn"):
             st.warning("Please cleansing data first.")
             
 if __name__ == '__main__':
