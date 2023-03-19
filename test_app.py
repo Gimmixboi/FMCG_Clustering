@@ -8,6 +8,15 @@ from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 from streamlit_extras.stateful_button import button
 
+if "Clean it up!" not in st.session_state:
+    st.session_state["Clean it up!"] = False
+if "Discover the Hidden Patterns!" not in st.session_state:
+    st.session_state["Discover the Hidden Patterns!"] = False
+if "Refine your clusters!" not in st.session_state:
+    st.session_state["Refine your clusters!"] = False
+if st.button("Clean it up!"):
+    st.session_state["Clean it up!"] = not st.session_state["Clean it up!"]
+
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
 st.title("🎆Clustering Model with K-Means on Web-Application💻")
@@ -68,7 +77,7 @@ def remodeling(cleaned_df, n_clusters):
 #         ax.set_title('Clusters')
 #         st.pyplot(fig)
 #         st.balloons()
-    
+ 
 def main():
     # อัพโหลดไฟล์ csv
     uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
@@ -84,16 +93,25 @@ def main():
         st.subheader("Cleansing data")
         cleaned_df = None
         # Clean data
-        if button('Clean it up!',key='Cleansing data'):
-            cleaned_df = clean_data(df)
-            st.subheader("Clustering model")
+        if st.session_state["Clean it up!"]:
+            if st.button("Discover the Hidden Patterns!"):
+                st.session_state["Discover the Hidden Patterns!"] = not st.session_state["Discover the Hidden Patterns!"]       
+#         if button('Clean it up!',key='Cleansing data'):
+                cleaned_df = clean_data(df)
+                st.subheader("Clustering model")
+        if st.session_state["Clean it up!"] and st.session_state["Discover the Hidden Patterns!"]:
+            if st.button("Refine your clusters!"):
+        # toggle button3 session state
+                st.session_state["Refine your clusters!"] = not st.session_state["Refine your clusters!"] 
             # clustering
-            if button('Discover the Hidden Patterns!',key='Run Clustering'):
+#             if button('Discover the Hidden Patterns!',key='Run Clustering'):
                 n_clusters = 0
                 model, _ = run_clustering(cleaned_df, n_clusters)
                 st.subheader("Remodeling by suitable K-values")
-                if button('Refine your clusters!',key='Remodeling'):
-                  remodeling(cleaned_df, n_clusters)
+        if st.session_state["Refine your clusters!"]:
+#              st.write("**Button3!!!**") 
+#                 if button('Refine your clusters!',key='Remodeling'):
+            remodeling(cleaned_df, n_clusters)
         else:    
             st.warning("Please cleansing data first.")
       
