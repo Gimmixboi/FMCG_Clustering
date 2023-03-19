@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
-st.title("Clustering Model with K-Means on Web-Application 💻")
+st.title("🎆Clustering Model with K-Means on Web-Application💻")
 
 def clean_data(df):
     with st.spinner("Data is processing,  ⏰ Please wait..."):
