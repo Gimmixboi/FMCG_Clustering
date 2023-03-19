@@ -47,7 +47,7 @@ def run_clustering(cleaned_df, n_clusters):
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("📊 WCSS Graph for find proper K and re-modeling")
-        plt.figure(figsize=(0.5, 0.5))
+        plt.figure(figsize=(6, 4), dpi=150)
         ax.plot(range(2, 10), wcss)
         ax.set_title('The Elbow Method')
         ax.set_xlabel('Number of clusters')
@@ -64,7 +64,20 @@ def remodeling(cleaned_df, n_clusters):
     model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
     model.fit(cleaned_df.values)
     score = silhouette_score(cleaned_df, model.labels_)
-    st.write(f'Silhouette Score: {score:.2f}')
+    st.write(f'Silhouette Score: {score:.2f}','with K='n_clusters)
+    # สร้างตัวเลือก feature ที่เป็น checkbox
+    features = st.multiselect('Select features', df.columns.tolist())
+    # กรองข้อมูลเฉพาะ feature ที่เลือก
+    filtered_df = df[features]
+    # สร้างกราฟ
+    fig, ax = plt.subplots()
+    fig = plt.figure(figsize=(6, 4), dpi=150)
+    ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
+    ax.set_xlabel(features[0])
+    ax.set_ylabel(features[1])
+    ax.set_title('Clusters')
+    st.pyplot(fig)
+    
 
 def main():
     # อัพโหลดไฟล์ csv
@@ -81,13 +94,9 @@ def main():
         cleaned_df = None
         # Clean data
         if button('Cleansing data',key='Cleansing data'):
-#             st.session_state['Cleansing data'] = not st.session_state['Cleansing data']
-#                       ,on_click=callback) or st.session_state.button_clicked):
             cleaned_df = clean_data(df)
             # clustering
-#             if st.session_state['Cleansing data']:
             if button('Run Clustering',key='Run Clustering'):
-#                     st.session_state['Run Clustering'] = not st.session_state['Run Clustering']
                 n_clusters = 0
                 model, _ = run_clustering(cleaned_df, n_clusters)
                 if button('Remodeling',key='Remodeling'):
