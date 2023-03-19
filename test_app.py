@@ -80,7 +80,7 @@ def main():
             # clustering
             if st.button('Run Clustering'):
                n_clusters = st.number_input('Select Number of Clusters at 1st round')
-                model, _ = run_clustering(cleaned_df, n_clusters)
+               model, _ = run_clustering(cleaned_df, n_clusters)
                 if st.button('Remodeling'):
                     remodeling(cleaned_df, n_clusters)
         else:    
