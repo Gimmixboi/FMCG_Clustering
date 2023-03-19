@@ -64,7 +64,7 @@ def remodeling(cleaned_df, n_clusters):
     model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
     model.fit(cleaned_df.values)
     score = silhouette_score(cleaned_df, model.labels_)
-    st.write(f'Silhouette Score: {score:.2f}','with K='n_clusters)
+    st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
     # สร้างตัวเลือก feature ที่เป็น checkbox
     features = st.multiselect('Select features', df.columns.tolist())
     # กรองข้อมูลเฉพาะ feature ที่เลือก
