@@ -123,15 +123,18 @@ def main():
         else:   
             if st.button("Button1"):
                 st.session_state["button1"] = not st.session_state["button1"]
-                st.write("check noting")
+                cleaned_df = clean_data(df)
+                st.subheader("Clustering model")
             if st.session_state["button1"]:
                 if st.button("Button2"):
                     st.session_state["button2"] = not st.session_state["button2"]
-                    st.write("check 1")
+                    n_clusters = 0
+                    model, _ = run_clustering(cleaned_df, n_clusters)
+                    st.subheader("Remodeling by suitable K-values")
             if st.session_state["button1"] and st.session_state["button2"]:
                 if st.button("Button3"):
-                    # toggle button3 session state
                     st.session_state["button3"] = not st.session_state["button3"]
+                    remodeling(cleaned_df, n_clusters)
 
             if st.session_state["button3"]:
                 st.write("**Button3!!!**")
