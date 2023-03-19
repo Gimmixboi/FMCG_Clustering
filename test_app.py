@@ -6,7 +6,8 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
-
+if "button_clicked" not in st.session_state:    
+    st.session_state.button_clicked = False
 
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
@@ -67,8 +68,6 @@ def main():
         st.write(f"Data have {df.shape[0]} rows")
         cleaned_df = None
         # Clean data
-        if "button_clicked" not in st.session_state:    
-            st.session_state.button_clicked = False
             if (st.button('Cleansing data',on_click=callback) or st.session_state.button_clicked):
                 cleaned_df = clean_data(df)
                 # clustering
