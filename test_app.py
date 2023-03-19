@@ -121,25 +121,15 @@ def main():
 #                 if button('Refine your clusters!',key='Remodeling'):
             remodeling(cleaned_df, n_clusters)
         else:   
-            if st.button("Button1"):
-                st.session_state["button1"] = not st.session_state["button1"]
-                cleaned_df = clean_data(df)
-                st.subheader("Clustering model")
-            if st.session_state["button1"]:
-                if st.button("Button2"):
-                    st.session_state["button2"] = not st.session_state["button2"]
-                    n_clusters = 0
-                    model, _ = run_clustering(cleaned_df, n_clusters)
-                    st.subheader("Remodeling by suitable K-values")
-            if st.session_state["button1"] and st.session_state["button2"]:
-                if st.button("Button3"):
-                    st.session_state["button3"] = not st.session_state["button3"]
-                    remodeling(cleaned_df, n_clusters)
-
-            if st.session_state["button3"]:
-                st.write("**Button3!!!**")
-            
             st.warning("Please cleansing data first.")
-      
+            col1, col2, col3 = st.columns(3) # แบ่งหน้าจอเป็น 3 คอลัมน์
+            with col1: # เป็นการเขียน button ในคอลัมน์แรก
+                st.button('Button 1')
+
+            with col2: # เป็นการเขียน button ในคอลัมน์ที่สอง
+                st.button('Button 2')
+
+            with col3: # เป็นการเขียน button ในคอลัมน์ที่สาม
+                st.button('Button 3')
 if __name__ == '__main__':
     main()
