@@ -30,12 +30,12 @@ def clean_data(df):
         return df
 
 def run_clustering(df, n_clusters):
-    cleaned_df = clean_data(df)
+    cleaned_df2 = clean_data(df)
     with st.spinner("Program is Calculating,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-            model.fit(cleaned_df.values)
+            model.fit(cleaned_df2.values)
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("📊 WCSS Graph for find proper K and re-modeling")
@@ -69,9 +69,9 @@ def main():
         if st.button('Run Clustering'):
 
             n_clusters = st.slider('Number of Clusters', 2, 10, 2)
-            cleaned_df = clean_data(df)
-            model = run_clustering(cleaned_df, n_clusters)
-            score = silhouette_score(cleaned_df, model.labels_)
+            cleaned_df3 = clean_data(df)
+            model = run_clustering(cleaned_df3, n_clusters)
+            score = silhouette_score(cleaned_df3, model.labels_)
             st.write(f'Silhouette Score: {score:.2f}')
             
 if __name__ == '__main__':
