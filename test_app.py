@@ -45,6 +45,7 @@ def run_clustering(cleaned_df, n_clusters):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
+        st.balloons()
         return model,cleaned_df
     
 # def callback():
@@ -58,6 +59,7 @@ def remodeling(cleaned_df, n_clusters):
         model.fit(cleaned_df.values)
         score = silhouette_score(cleaned_df, model.labels_)
         st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
+        st.balloons()
         # สร้างตัวเลือก feature ที่เป็น checkbox
 #         features = st.multiselect('Select features', cleaned_df.columns.tolist())
 #         # กรองข้อมูลเฉพาะ feature ที่เลือก
@@ -94,6 +96,7 @@ def main():
             if button('Discover the Hidden Patterns!',key='Run Clustering'):
                 n_clusters = 0
                 model, _ = run_clustering(cleaned_df, n_clusters)
+                st.subheader("Remodeling by suitable K-values")
                 if button('Refine your clusters!',key='Remodeling'):
                   remodeling(cleaned_df, n_clusters)
         else:    
