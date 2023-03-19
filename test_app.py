@@ -39,7 +39,7 @@ def run_clustering(cleaned_df, n_clusters):
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.subheader("📊 WCSS Graph for find proper K and re-modeling")
-        plt.figure(figsize=(6, 4), dpi=150)
+        plt.figure(figsize=(1, 1), dpi=150)
         ax.plot(range(2, 10), wcss)
         ax.set_title('The Elbow Method')
         ax.set_xlabel('Number of clusters')
@@ -61,13 +61,13 @@ def remodeling(cleaned_df, n_clusters):
         # กรองข้อมูลเฉพาะ feature ที่เลือก
         filtered_df = cleaned_df[features]
         # สร้างกราฟ
-#         fig, ax = plt.subplots()
-#         fig = plt.figure(figsize=(6, 4), dpi=150)
-#         ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
-#         ax.set_xlabel(features[0])
-#         ax.set_ylabel(features[1])
-#         ax.set_title('Clusters')
-#         st.pyplot(fig)
+        fig, ax = plt.subplots()
+        fig = plt.figure(figsize=(1, 1), dpi=150)
+        ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
+        ax.set_xlabel(features[0])
+        ax.set_ylabel(features[1])
+        ax.set_title('Clusters')
+        st.pyplot(fig)
     
 
 def main():
