@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
 st.title("🎆Clustering Model with K-Means on Web-Application💻")
-
+n_clusters = st.slider('Number of Clusters', 2, 10, 2)
 def clean_data(df):
     with st.spinner("Data is processing,  ⏰ Please wait..."):
         df.dropna(inplace=True)
@@ -39,7 +39,7 @@ def run_clustering(cleaned_df, n_clusters):
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("📊 WCSS Graph for find proper K and re-modeling")
-        plt.figure(figsize=(8, 6))
+        plt.figure(figsize=(4, 2))
         ax.plot(range(2, 10), wcss)
         ax.set_title('The Elbow Method')
         ax.set_xlabel('Number of clusters')
@@ -64,7 +64,6 @@ def main():
         # Clean data
         if st.button('Cleansing data'):
             cleaned_df = clean_data(df)
-            n_clusters = st.slider('Number of Clusters', 2, 10, 2)
             model, _ = run_clustering(cleaned_df, n_clusters)
             score = silhouette_score(cleaned_df, model.labels_)
             st.write(f'Silhouette Score: {score:.2f}')
