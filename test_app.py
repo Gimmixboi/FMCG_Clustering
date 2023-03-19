@@ -30,6 +30,7 @@ def clean_data(df):
         return df
 
 def run_clustering(df, n_clusters):
+    cleaned_df = clean_data(df)
     with st.spinner("Program is Calculating,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
@@ -44,7 +45,7 @@ def run_clustering(df, n_clusters):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
-        return model
+        return model,cleand_df
 
 def main():
     # อัพโหลดไฟล์ csv
@@ -66,7 +67,7 @@ def main():
         # clustering
         if st.button('Run Clustering'):
             n_clusters = st.slider('Number of Clusters', 2, 10, 2)
-            model = run_clustering(df, n_clusters)
+            model = run_clustering(cleaned_df, n_clusters)
             score = silhouette_score(cleaned_df, model.labels_)
             silhouette_scores.append(score)
             st.write(f'Silhouette Score: {silhouette_scores:.2f}')
