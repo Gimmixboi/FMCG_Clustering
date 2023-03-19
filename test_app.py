@@ -81,7 +81,7 @@ def main():
             if st.button('Run Clustering'):
                 model, _ = run_clustering(cleaned_df, n_clusters)
                 if st.button('Remodeling'):
-                    remodeling(cleaned_df, n_clusters):
+                    remodeling(cleaned_df, n_clusters)
         else:    
             st.warning("Please cleansing data first.")
 
