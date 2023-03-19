@@ -8,15 +8,7 @@ from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 from streamlit_extras.stateful_button import button
 
-col1, col2, col3 = st.columns(3) # แบ่งหน้าจอเป็น 3 คอลัมน์
-with col1: # เป็นการเขียน button ในคอลัมน์แรก
-    st.button('Button 1')
 
-with col2: # เป็นการเขียน button ในคอลัมน์ที่สอง
-    st.button('Button 2')
-
-with col3: # เป็นการเขียน button ในคอลัมน์ที่สาม
-    st.button('Button 3')
 
 if "Clean it up!" not in st.session_state:
     st.session_state["Clean it up!"] = False
@@ -110,26 +102,36 @@ def main():
         st.write(f"Data have {df.shape[0]} rows")
         st.subheader("Cleansing data")
         cleaned_df = None
-        # Clean data
-        if st.session_state["Clean it up!"]:
-            if st.button("Discover the Hidden Patterns!"):
-                st.session_state["Discover the Hidden Patterns!"] = not st.session_state["Discover the Hidden Patterns!"]       
-#         if button('Clean it up!',key='Cleansing data'):
-                cleaned_df = clean_data(df)
-                st.subheader("Clustering model")
-        elif st.session_state["Clean it up!"] and st.session_state["Discover the Hidden Patterns!"]:
-            if st.button("Refine your clusters!"):
-        # toggle button3 session state
-                st.session_state["Refine your clusters!"] = not st.session_state["Refine your clusters!"] 
-            # clustering
-#             if button('Discover the Hidden Patterns!',key='Run Clustering'):
-                n_clusters = 0
-                model, _ = run_clustering(cleaned_df, n_clusters)
-                st.subheader("Remodeling by suitable K-values")
-        elif st.session_state["Refine your clusters!"]:
-#              st.write("**Button3!!!**") 
-#                 if button('Refine your clusters!',key='Remodeling'):
+        col1, col2, col3 = st.columns(3) # แบ่งหน้าจอเป็น 3 คอลัมน์
+        with col1: # เป็นการเขียน button ในคอลัมน์แรก
+            st.button('Clean it up!')
+            cleaned_df = clean_data(df)
+            st.subheader("Clustering model")
+        with col2: # เป็นการเขียน button ในคอลัมน์ที่สอง
+            st.button('Discover the Hidden Patterns!')
+            n_clusters = 0
+            model, _ = run_clustering(cleaned_df, n_clusters)
+            st.subheader("Remodeling by suitable K-values")
+        with col3: # เป็นการเขียน button ในคอลัมน์ที่สาม
+            st.button('Button 3')
             remodeling(cleaned_df, n_clusters)
+        # Clean data
+#         if button('Clean it up!',key='Cleansing data'):
+#                 cleaned_df = clean_data(df)
+#                 st.subheader("Clustering model")
+#         elif st.session_state["Clean it up!"] and st.session_state["Discover the Hidden Patterns!"]:
+#             if st.button("Refine your clusters!"):
+#         # toggle button3 session state
+#                 st.session_state["Refine your clusters!"] = not st.session_state["Refine your clusters!"] 
+#             # clustering
+# #             if button('Discover the Hidden Patterns!',key='Run Clustering'):
+#                 n_clusters = 0
+#                 model, _ = run_clustering(cleaned_df, n_clusters)
+#                 st.subheader("Remodeling by suitable K-values")
+#         elif st.session_state["Refine your clusters!"]:
+# #              st.write("**Button3!!!**") 
+# #                 if button('Refine your clusters!',key='Remodeling'):
+#             remodeling(cleaned_df, n_clusters)
         else:   
             st.warning("Please cleansing data first.")
 
