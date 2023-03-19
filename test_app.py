@@ -66,33 +66,10 @@ def main():
         # clustering
         if st.button('Run Clustering'):
             n_clusters = st.slider('Number of Clusters', 1, 10, 2)
-            model, score = run_clustering(df, n_clusters)
+            model, silhouette_scores = run_clustering(df, n_clusters)
             st.write(f'Silhouette Score: {silhouette_scores:.2f}')
             
 if __name__ == '__main__':
     main()
 
    
-
-#     plt.figure(figsize=(8, 6))
-#     ax.plot(range(1, 10), silhouette_scores)
-#     ax.set_title("Silhouette Score")
-#     ax.set_xlabel("Number of Clusters")
-#     ax.set_ylabel("Score")
-#     st.pyplot(fig)
-
-#         else:
-#             st.write("Warning:")
-#             st.warning("Please find proper K and re-modeling")
-#         if st.button('Remodeling with new K'):
-#             st.write("Please select Number of clusters which find from WCSS graph")
-#             n_clusters = st.slider('Number of clusters', 1, 10)
-#             model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
-#             model.fit(df.values)
-#         else:
-#             st.write("Warning:")
-        
-#     else: 
-#         st.write("Warning:")
-#         st.warning("Please Cleansing data first ")
-
