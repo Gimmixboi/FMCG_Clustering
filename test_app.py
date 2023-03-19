@@ -79,6 +79,7 @@ def main():
             cleaned_df = clean_data(df)
             # clustering
             if st.button('Run Clustering'):
+               n_clusters = st.number_input('Select Number of Clusters at 1st round')
                 model, _ = run_clustering(cleaned_df, n_clusters)
                 if st.button('Remodeling'):
                     remodeling(cleaned_df, n_clusters)
