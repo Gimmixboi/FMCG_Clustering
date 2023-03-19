@@ -12,7 +12,7 @@ from sklearn.preprocessing import StandardScaler
 # st.sidebar.title("Setting Plane")
 st.title("Clustering Model with K-Means on Web-Application 💻")
 
-def run_clustering(df, n_clusters):    
+def clean_data(df):
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
     df.drop(['CustomerID','Document Date'], axis=1,inplace=True)
@@ -26,22 +26,35 @@ def run_clustering(df, n_clusters):
     st.write("Cleaned Dataset:")
     st.write(df.head())
     st.write(f"Data have {df.shape[0]} rows")
-#         st.write(df.dtypes)
-#         if st.button('Step2 : Plotting WCSSS Graph'):
-    st.write("⏰ Program is Running  ,  Please wait.....") 
-    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-    model = kmeans.fit(df)
-    score = silhouette_score(df, model.labels_)
-    # plot clusters
-    fig = plt.figure(figsize=(10, 10))
-    plt.scatter(df.iloc[:, 0], df.iloc[:, 1], c=model.labels_)
-    plt.title('Clusters')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
+    return df
 
-    # save plot and return score
+def run_clustering(df, n_clusters):    
+    st.write("⏰ Program is Running,"  ",Please wait.....") 
+    cleaned_df = clean_data(df)
+    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+    model = kmeans.fit(cleaned_df)
+    score = silhouette_score(cleaned_df, model.labels_)
+    return model, score
+
+def graph(df, n_clusters):
+    cleaned_df = clean_data(df)
+    wcss = []
+    silhouette_scores = []
+    for i in range(1, 10):
+        model = KMeans(n_clusters=i, init='k-means++', random_state=0)
+        model.fit(cleaned_df.values)
+        wcss.append(model.inertia_)
+        score = silhouette_score(cleaned_df, model.labels_)
+        silhouette_scores.append(score)
+    fig, ax = plt.subplots()
+    st.write("📊 WCSS & Silhouette Score Graph for find proper K and re-modeling")
+    plt.figure(figsize=(8, 6))
+    ax.plot(range(1, 10), wcss)
+    ax.set_title('The Elbow Method')
+    ax.set_xlabel('Number of clusters')
+    ax.set_ylabel('WCSS')
     st.pyplot(fig)
-    return score
+
 
 def main():
     # อัพโหลดไฟล์ csv
@@ -56,34 +69,18 @@ def main():
         st.write("Uploaded file:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
-#         #คลีนข้อมูล
-#         if st.button('Make data to clean🧹'):
-     # clustering
-    if st.button('Run Clustering'):
-        n_clusters = st.slider('Number of Clusters', 1, 10, 2)
-        score = run_clustering(df, n_clusters)
-        st.write(f'Silhouette Score: {score:.2f}')
-
+        # clustering
+        if st.button('Run Clustering'):
+            n_clusters = st.slider('Number of Clusters', 1, 10, 2)
+            model, score = run_clustering(df, n_clusters)
+            st.write(f'Silhouette Score: {score:.2f}')
+            if st.button('Step2 : Plotting WCSSS Graph'):
+                graph(df, n_clusters)
 
 if __name__ == '__main__':
     main()
 
-#     wcss = []
-#     silhouette_scores = []
-#     for i in range(1, 10):
-#         model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-#         model.fit(df.values)
-#         wcss.append(model.inertia_)
-#         score = silhouette_score(df, model.labels_)
-#         silhouette_scores.append(score)
-#     fig, ax = plt.subplots()
-#     st.write("📊 WCSS & Silhouette Score Graph for find proper K and re-modeling")
-#     plt.figure(figsize=(8, 6))
-#     ax.plot(range(1, 10), wcss)
-#     ax.set_title('The Elbow Method')
-#     ax.set_xlabel('Number of clusters')
-#     ax.set_ylabel('WCSS')
-#     st.pyplot(fig)
+   
 
 #     plt.figure(figsize=(8, 6))
 #     ax.plot(range(1, 10), silhouette_scores)
