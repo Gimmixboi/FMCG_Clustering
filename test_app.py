@@ -8,27 +8,6 @@ from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 from streamlit_extras.stateful_button import button
 
-
-
-if "Clean it up!" not in st.session_state:
-    st.session_state["Clean it up!"] = False
-if "Discover the Hidden Patterns!" not in st.session_state:
-    st.session_state["Discover the Hidden Patterns!"] = False
-if "Refine your clusters!" not in st.session_state:
-    st.session_state["Refine your clusters!"] = False
-if st.button("Clean it up!"):
-    st.session_state["Clean it up!"] = not st.session_state["Clean it up!"]
-if "button1" not in st.session_state:
-    st.session_state["button1"] = False
-
-if "button2" not in st.session_state:
-    st.session_state["button2"] = False
-
-if "button3" not in st.session_state:
-    st.session_state["button3"] = False
-
-# st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
-# st.sidebar.title("Setting Plane")
 st.title("🎆Clustering Model with K-Means on Web-Application💻")
 
 def clean_data(df):
@@ -132,8 +111,8 @@ def main():
 # #              st.write("**Button3!!!**") 
 # #                 if button('Refine your clusters!',key='Remodeling'):
 #             remodeling(cleaned_df, n_clusters)
-        else:   
-            st.warning("Please cleansing data first.")
+#     else:   
+#         st.warning("Please cleansing data first.")
 
 if __name__ == '__main__':
     main()
