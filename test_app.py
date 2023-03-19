@@ -74,11 +74,11 @@ def main():
         # clustering
         if st.button('Run Clustering'):
             n_clusters = st.slider('Number of Clusters', 1, 10, 2)
-#             model, score = run_clustering(df, n_clusters)
+            model, score = graph(df, n_clusters)
             
 #             if st.button('Step2 : Plotting WCSSS Graph'):
-            st.write(f'Silhouette Score: {score:.2f}')    
-            graph(df, n_clusters)
+#             st.write(f'Silhouette Score: {score:.2f}')    
+            
             
 
 if __name__ == '__main__':
