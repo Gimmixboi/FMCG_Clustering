@@ -39,7 +39,7 @@ def run_clustering(cleaned_df, n_clusters):
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.subheader("📊 WCSS Graph for find proper K and re-modeling")
-        plt.figure(figsize=(1, 1), dpi=150)
+        plt.figure(figsize=(6, 4), dpi=150)
         ax.plot(range(2, 10), wcss)
         ax.set_title('The Elbow Method')
         ax.set_xlabel('Number of clusters')
@@ -55,21 +55,21 @@ def remodeling(cleaned_df, n_clusters):
         model.fit(cleaned_df.values)
         score = silhouette_score(cleaned_df, model.labels_)
         st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
-        st.balloons()
         # สร้างตัวเลือก feature ที่เป็น checkbox
-        features = st.multiselect('Select features', cleaned_df.columns.tolist())
+        features = st.multiselect('Select up to 2 features', cleaned_df.columns.tolist(), 
+        _key='feature_selection', default=cleaned_df.columns.tolist()[:2], max_value=2)
         # กรองข้อมูลเฉพาะ feature ที่เลือก
         filtered_df = cleaned_df[features]
         # สร้างกราฟ
         fig, ax = plt.subplots()
-        fig = plt.figure(figsize=(1, 1), dpi=150)
+        fig = plt.figure(figsize=(6, 4), dpi=150)
         ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
         ax.set_xlabel(features[0])
         ax.set_ylabel(features[1])
         ax.set_title('Clusters')
         st.pyplot(fig)
+        st.balloons()
     
-
 def main():
     # อัพโหลดไฟล์ csv
     uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
