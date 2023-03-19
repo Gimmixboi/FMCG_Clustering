@@ -60,14 +60,14 @@ def remodeling(cleaned_df, n_clusters):
         # กรองข้อมูลเฉพาะ feature ที่เลือก
         filtered_df = cleaned_df[features]
         # สร้างกราฟ
-        fig, ax = plt.subplots()
-        fig = plt.figure(figsize=(6, 4), dpi=150)
-        ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
-        ax.set_xlabel(features[0])
-        ax.set_ylabel(features[1])
-        ax.set_title('Clusters')
-        st.pyplot(fig)
-        st.balloons()
+#         fig, ax = plt.subplots()
+#         fig = plt.figure(figsize=(6, 4), dpi=150)
+#         ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
+#         ax.set_xlabel(features[0])
+#         ax.set_ylabel(features[1])
+#         ax.set_title('Clusters')
+#         st.pyplot(fig)
+#         st.balloons()
     
 def main():
     # อัพโหลดไฟล์ csv
