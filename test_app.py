@@ -66,7 +66,7 @@ def main():
         # Clean data
         if "button_clicked" not in st.session_state:    
             st.session_state.button_clicked = False
-            if (st.button('Cleansing data') or or st.session_state.button_clicked):
+            if (st.button('Cleansing data') or st.session_state.button_clicked):
                 cleaned_df = clean_data(df)
                 # clustering
                 if st.button('Run Clustering'):
