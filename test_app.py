@@ -33,7 +33,7 @@ def run_clustering(df, n_clusters):
     with st.spinner("Program is Calculating,  Please wait..."):
         wcss = []
         silhouette_scores = []
-        for i in range(1, 10):
+        for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
             model.fit(cleaned_df.values)
             wcss.append(model.inertia_)
