@@ -11,7 +11,8 @@ from sklearn.preprocessing import StandardScaler
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
 st.title("🎆Clustering Model with K-Means on Web-Application💻")
-n_clusters = st.slider('Number of Clusters', 2, 10, 2)
+st.subheader("Number of Clusters")
+n_clusters = st.slider('Slider', 2, 10, 2)
 def clean_data(df):
     with st.spinner("Data is processing,  ⏰ Please wait..."):
         df.dropna(inplace=True)
@@ -64,10 +65,10 @@ def main():
         # Clean data
         if st.button('Cleansing data'):
             cleaned_df = clean_data(df)
-            st.write(cleaned_df.head())
+            result = st.button('Cleansing data')
             # clustering
-            if st.button('Run Clustering'):
-                st.write(cleaned_df.head())
+            if result:
+                st.button('Run Clustering'):
 #                 model, _ = run_clustering(cleaned_df, n_clusters)
 #                 score = silhouette_score(cleaned_df, model.labels_)
 #                 st.write(f'Silhouette Score: {score:.2f}')
