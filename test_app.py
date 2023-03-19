@@ -52,7 +52,7 @@ def main():
     # อัพโหลดไฟล์ csv
     uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
     st.subheader("Select Number of Clusters first")
-    n_clusters = st.slider('Slider', 2, 10, 2)
+    n_clusters = st.slider(2, 10, 2)
     # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
     if uploaded_file is None:
         st.write("Warning:")
@@ -66,7 +66,7 @@ def main():
         # Clean data
         if "button_clicked" not in st.session_state:    
             st.session_state.button_clicked = False
-            if (st.button('Cleansing data') or st.session_state.button_clicked):
+            if st.button('Cleansing data') or st.session_state.button_clicked:
                 cleaned_df = clean_data(df)
                 # clustering
                 if st.button('Run Clustering'):
