@@ -61,17 +61,20 @@ def main():
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
         # Clean data
+        cleaned_df = None
         if st.button('Cleansing data'):
             cleaned_df = clean_data(df)
         else:
             st.warning("Please cleansing data.")
         # clustering
         if st.button('Run Clustering'):
-            n_clusters = st.slider('Number of Clusters', 2, 10, 2)
-            model = run_clustering(cleaned_df, n_clusters)
-            score = silhouette_score(cleaned_df, model.labels_)
-            silhouette_scores.append(score)
-            st.write(f'Silhouette Score: {silhouette_scores:.2f}')
+            if cleaned_df is None:
+                st.warning("Please cleansing data first.")
+            else:
+                n_clusters = st.slider('Number of Clusters', 2, 10, 2)
+                model = run_clustering(cleaned_df, n_clusters)
+                score = silhouette_score(cleaned_df, model.labels_)
+                st.write(f'Silhouette Score: {score:.2f}')
             
 if __name__ == '__main__':
     main()
