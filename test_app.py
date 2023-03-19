@@ -47,7 +47,7 @@ def run_clustering(df, n_clusters):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
-        return model,score
+        return model,silhouette_scores
 
 
 def main():
@@ -67,7 +67,7 @@ def main():
         if st.button('Run Clustering'):
             n_clusters = st.slider('Number of Clusters', 1, 10, 2)
             model, score = run_clustering(df, n_clusters)
-            st.write(f'Silhouette Score: {score:.2f}')
+            st.write(f'Silhouette Score: {silhouette_scores:.2f}')
             
 if __name__ == '__main__':
     main()
