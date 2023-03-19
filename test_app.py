@@ -8,6 +8,16 @@ from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 from streamlit_extras.stateful_button import button
 
+col1, col2, col3 = st.columns(3) # แบ่งหน้าจอเป็น 3 คอลัมน์
+with col1: # เป็นการเขียน button ในคอลัมน์แรก
+    st.button('Button 1')
+
+with col2: # เป็นการเขียน button ในคอลัมน์ที่สอง
+    st.button('Button 2')
+
+with col3: # เป็นการเขียน button ในคอลัมน์ที่สาม
+    st.button('Button 3')
+
 if "Clean it up!" not in st.session_state:
     st.session_state["Clean it up!"] = False
 if "Discover the Hidden Patterns!" not in st.session_state:
@@ -122,14 +132,6 @@ def main():
             remodeling(cleaned_df, n_clusters)
         else:   
             st.warning("Please cleansing data first.")
-            col1, col2, col3 = st.columns(3) # แบ่งหน้าจอเป็น 3 คอลัมน์
-            with col1: # เป็นการเขียน button ในคอลัมน์แรก
-                st.button('Button 1')
 
-            with col2: # เป็นการเขียน button ในคอลัมน์ที่สอง
-                st.button('Button 2')
-
-            with col3: # เป็นการเขียน button ในคอลัมน์ที่สาม
-                st.button('Button 3')
 if __name__ == '__main__':
     main()
