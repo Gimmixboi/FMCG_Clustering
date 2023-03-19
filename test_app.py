@@ -6,9 +6,14 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
+from streamlit_extras.stateful_button import button
 
-if "button_clicked" not in st.session_state:    
-    st.session_state.button_clicked = False
+if "button1" not in st.session_state:    
+    st.session_state["button1"] = False
+if "button2" not in st.session_state:
+    st.session_state["button2"] = False
+if "button3" not in st.session_state:
+    st.session_state["button3"] = False
 
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
@@ -50,8 +55,8 @@ def run_clustering(cleaned_df, n_clusters):
         st.pyplot(fig)
         return model,cleaned_df
     
-def callback():
-    st.session_state.button_clicked = True
+# def callback():
+#     st.session_state.button_clicked = True
     
 def remodeling(cleaned_df, n_clusters):
     st.write("Select Number of Clusters first")
@@ -75,13 +80,17 @@ def main():
         st.write(f"Data have {df.shape[0]} rows")
         cleaned_df = None
         # Clean data
-        if (st.button('Cleansing data',on_click=callback) or st.session_state.button_clicked):
+        if button('Cleansing data',key='Cleansing data'):
+#             st.session_state['Cleansing data'] = not st.session_state['Cleansing data']
+#                       ,on_click=callback) or st.session_state.button_clicked):
             cleaned_df = clean_data(df)
             # clustering
-            if st.button('Run Clustering'):
-               n_clusters = 0
-               model, _ = run_clustering(cleaned_df, n_clusters)
-               if st.button('Remodeling'):
+#             if st.session_state['Cleansing data']:
+            if button('Run Clustering',key='Run Clustering'):
+#                     st.session_state['Run Clustering'] = not st.session_state['Run Clustering']
+                n_clusters = 0
+                model, _ = run_clustering(cleaned_df, n_clusters)
+                if button('Remodeling',key='Remodeling'):
                   remodeling(cleaned_df, n_clusters)
         else:    
             st.warning("Please cleansing data first.")
