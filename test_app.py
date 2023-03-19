@@ -27,10 +27,10 @@ def clean_data(df):
         st.write("Cleaned Dataset:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
-        cleaned_df = df.copy()
-        return cleaned_df
+        return df
 
-def run_clustering(cleaned_df, n_clusters):
+def run_clustering(df, n_clusters):
+    cleaned_df = clean_data(df)
     with st.spinner("Program is Calculating,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
@@ -45,12 +45,12 @@ def run_clustering(cleaned_df, n_clusters):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
-        return model,cleaned_df
+        return model
 
 def main():
     # อัพโหลดไฟล์ csv
     uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
-
+     
     # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
     if uploaded_file is None:
         st.write("Warning:")
@@ -69,9 +69,10 @@ def main():
         if st.button('Run Clustering'):
 
             n_clusters = st.slider('Number of Clusters', 2, 10, 2)
-            model = run_clustering(cleaned_df.copy(), n_clusters)
-#             score = silhouette_score(cleaned_df, model.labels_)
-#             st.write(f'Silhouette Score: {score:.2f}')
+            cleaned_df = clean_data(df)
+            model = run_clustering(cleaned_df, n_clusters)
+            score = silhouette_score(cleaned_df, model.labels_)
+            st.write(f'Silhouette Score: {score:.2f}')
             
 if __name__ == '__main__':
     main()
