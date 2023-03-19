@@ -31,12 +31,11 @@ def clean_data(df):
         return cleaned_df
 
 def run_clustering(cleaned_df, n_clusters):
-#     cleaned_df = clean_data(df)
     with st.spinner("Program is Calculating,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-            model.fit(df.values)
+            model.fit(cleaned_df.values)
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("📊 WCSS Graph for find proper K and re-modeling")
