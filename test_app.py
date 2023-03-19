@@ -60,10 +60,11 @@ def main():
         st.write("Uploaded file:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
-        st.warning("Please cleansing data.")
         # Clean data
         if st.button('Cleansing data'):
             cleaned_df = clean_data(df)
+        else:
+            st.warning("Please cleansing data.")
         # clustering
         if st.button('Run Clustering'):
             n_clusters = st.slider('Number of Clusters', 2, 10, 2)
