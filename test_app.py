@@ -87,14 +87,14 @@ def main():
         st.subheader("Cleansing data")
         cleaned_df = None
         # Clean data
-        if button('Cleansing data',key='Cleansing data'):
+        if button('Clean it up!',key='Cleansing data'):
             cleaned_df = clean_data(df)
             st.subheader("Clustering model")
             # clustering
-            if button('Run Clustering',key='Run Clustering'):
+            if button("Discover the Hidden Patterns!',key='Run Clustering'):
                 n_clusters = 0
                 model, _ = run_clustering(cleaned_df, n_clusters)
-                if button('Remodeling',key='Remodeling'):
+                if button('Refine your clusters!',key='Remodeling'):
                   remodeling(cleaned_df, n_clusters)
         else:    
             st.warning("Please cleansing data first.")
