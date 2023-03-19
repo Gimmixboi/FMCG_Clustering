@@ -28,16 +28,17 @@ def clean_data(df):
     st.write(f"Data have {df.shape[0]} rows")
     return df
 
-def run_clustering(df, n_clusters):     
-    cleaned_df = clean_data(df)
-    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-    st.write("⏰ Program is Running  ,  Please wait.....")
-    model = kmeans.fit(cleaned_df)
-    score = silhouette_score(cleaned_df, model.labels_)
-    return model, score
+# def run_clustering(df, n_clusters):     
+#     cleaned_df = clean_data(df)
+#     kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+#     st.write("⏰ Program is Running  ,  Please wait.....")
+#     model = kmeans.fit(cleaned_df)
+#     score = silhouette_score(cleaned_df, model.labels_)
+#     return model, score
 
 def graph(df, n_clusters):
-#     cleaned_df = clean_data(df)
+    cleaned_df = clean_data(df)
+    with st.spinner("Plotting..."):
     wcss = []
     silhouette_scores = []
     for i in range(1, 10):
@@ -72,10 +73,12 @@ def main():
         # clustering
         if st.button('Run Clustering'):
             n_clusters = st.slider('Number of Clusters', 1, 10, 2)
-            model, score = run_clustering(df, n_clusters)
-            st.write(f'Silhouette Score: {score:.2f}')
+#             model, score = run_clustering(df, n_clusters)
+            
 #             if st.button('Step2 : Plotting WCSSS Graph'):
+            st.write(f'Silhouette Score: {score:.2f}')    
             graph(df, n_clusters)
+            
 
 if __name__ == '__main__':
     main()
