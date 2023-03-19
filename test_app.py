@@ -30,7 +30,7 @@ def clean_data(df):
         return df
 
 def run_clustering(df, n_clusters):
-    cleaned_df2 = clean_data(df)
+    cleaned_df = clean_data(df)
     with st.spinner("Program is Calculating,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
@@ -65,13 +65,13 @@ def main():
             cleaned_df = clean_data(df)
         else:
             st.warning("Please cleansing data first.")
+            cleaned_df = None
         # clustering
-        if st.button('Run Clustering'):
+        if st.button('Run Clustering') and cleaned_df is not None:
 
             n_clusters = st.slider('Number of Clusters', 2, 10, 2)
-            cleaned_df3 = clean_data(df)
-            model = run_clustering(cleaned_df3, n_clusters)
-            score = silhouette_score(cleaned_df3, model.labels_)
+            model = run_clustering(cleaned_df, n_clusters)
+            score = silhouette_score(cleaned_df, model.labels_)
             st.write(f'Silhouette Score: {score:.2f}')
             
 if __name__ == '__main__':
