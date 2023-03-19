@@ -52,14 +52,14 @@ def run_clustering(cleaned_df, n_clusters):
 #     st.session_state.button_clicked = True
     
 def remodeling(cleaned_df, n_clusters):
+    st.write("Select Number of Clusters first")
+    n_clusters = st.slider("",2, 10, 2)
     with st.spinner("Remodeling,  ⏰ Please wait..."):
-        st.write("Select Number of Clusters first")
-        n_clusters = st.slider("",2, 10, 2)
         model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
         model.fit(cleaned_df.values)
         score = silhouette_score(cleaned_df, model.labels_)
         st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
-        st.balloons()
+#         st.balloons()
         # สร้างตัวเลือก feature ที่เป็น checkbox
 #         features = st.multiselect('Select features', cleaned_df.columns.tolist())
 #         # กรองข้อมูลเฉพาะ feature ที่เลือก
