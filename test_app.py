@@ -16,6 +16,14 @@ if "Refine your clusters!" not in st.session_state:
     st.session_state["Refine your clusters!"] = False
 if st.button("Clean it up!"):
     st.session_state["Clean it up!"] = not st.session_state["Clean it up!"]
+if "button1" not in st.session_state:
+    st.session_state["button1"] = False
+
+if "button2" not in st.session_state:
+    st.session_state["button2"] = False
+
+if "button3" not in st.session_state:
+    st.session_state["button3"] = False
 
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
@@ -112,16 +120,7 @@ def main():
 #              st.write("**Button3!!!**") 
 #                 if button('Refine your clusters!',key='Remodeling'):
             remodeling(cleaned_df, n_clusters)
-        else:    
-            if "button1" not in st.session_state:
-                st.session_state["button1"] = False
-
-            if "button2" not in st.session_state:
-                st.session_state["button2"] = False
-
-            if "button3" not in st.session_state:
-                st.session_state["button3"] = False
-
+        else:   
             if st.button("Button1"):
                 st.session_state["button1"] = not st.session_state["button1"]
 
