@@ -99,7 +99,7 @@ def main():
 #         if button('Clean it up!',key='Cleansing data'):
                 cleaned_df = clean_data(df)
                 st.subheader("Clustering model")
-        if st.session_state["Clean it up!"] and st.session_state["Discover the Hidden Patterns!"]:
+        elif st.session_state["Clean it up!"] and st.session_state["Discover the Hidden Patterns!"]:
             if st.button("Refine your clusters!"):
         # toggle button3 session state
                 st.session_state["Refine your clusters!"] = not st.session_state["Refine your clusters!"] 
@@ -108,7 +108,7 @@ def main():
                 n_clusters = 0
                 model, _ = run_clustering(cleaned_df, n_clusters)
                 st.subheader("Remodeling by suitable K-values")
-        if st.session_state["Refine your clusters!"]:
+        elif st.session_state["Refine your clusters!"]:
 #              st.write("**Button3!!!**") 
 #                 if button('Refine your clusters!',key='Remodeling'):
             remodeling(cleaned_df, n_clusters)
