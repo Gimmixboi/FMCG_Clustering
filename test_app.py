@@ -29,8 +29,8 @@ def clean_data(df):
         st.write(f"Data have {df.shape[0]} rows")
         return df
 
-def run_clustering(df, n_clusters):
-    cleaned_df = clean_data(df)
+def run_clustering(cleaned_df, n_clusters):
+#     cleaned_df = clean_data(df)
     with st.spinner("Program is Calculating,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
