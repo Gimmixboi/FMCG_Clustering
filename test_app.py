@@ -8,17 +8,9 @@ from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 from streamlit_extras.stateful_button import button
 
-if "button1" not in st.session_state:    
-    st.session_state["button1"] = False
-if "button2" not in st.session_state:
-    st.session_state["button2"] = False
-if "button3" not in st.session_state:
-    st.session_state["button3"] = False
-
 # st.set_page_config(page_title="Clustering Model with K-Means", page_icon=":clipboard:", layout="wide")
 # st.sidebar.title("Setting Plane")
 st.title("🎆Clustering Model with K-Means on Web-Application💻")
-
 
 def clean_data(df):
     with st.spinner("Data is processing,  ⏰ Please wait..."):
@@ -46,7 +38,7 @@ def run_clustering(cleaned_df, n_clusters):
             model.fit(cleaned_df.values)
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
-        st.write("📊 WCSS Graph for find proper K and re-modeling")
+        st.subheader("📊 WCSS Graph for find proper K and re-modeling")
         plt.figure(figsize=(6, 4), dpi=150)
         ax.plot(range(2, 10), wcss)
         ax.set_title('The Elbow Method')
@@ -59,24 +51,25 @@ def run_clustering(cleaned_df, n_clusters):
 #     st.session_state.button_clicked = True
     
 def remodeling(cleaned_df, n_clusters):
-    st.write("Select Number of Clusters first")
-    n_clusters = st.slider("",2, 10, 2)
-    model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
-    model.fit(cleaned_df.values)
-    score = silhouette_score(cleaned_df, model.labels_)
-    st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
-    # สร้างตัวเลือก feature ที่เป็น checkbox
-    features = st.multiselect('Select features', df.columns.tolist())
-    # กรองข้อมูลเฉพาะ feature ที่เลือก
-    filtered_df = df[features]
-    # สร้างกราฟ
-    fig, ax = plt.subplots()
-    fig = plt.figure(figsize=(6, 4), dpi=150)
-    ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
-    ax.set_xlabel(features[0])
-    ax.set_ylabel(features[1])
-    ax.set_title('Clusters')
-    st.pyplot(fig)
+    with st.spinner("Remodeling,  ⏰ Please wait..."):
+        st.write("Select Number of Clusters first")
+        n_clusters = st.slider("",2, 10, 2)
+        model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
+        model.fit(cleaned_df.values)
+        score = silhouette_score(cleaned_df, model.labels_)
+        st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
+        # สร้างตัวเลือก feature ที่เป็น checkbox
+        features = st.multiselect('Select features', cleaned_df.columns.tolist())
+        # กรองข้อมูลเฉพาะ feature ที่เลือก
+        filtered_df = cleaned_df[features]
+        # สร้างกราฟ
+        fig, ax = plt.subplots()
+        fig = plt.figure(figsize=(6, 4), dpi=150)
+        ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
+        ax.set_xlabel(features[0])
+        ax.set_ylabel(features[1])
+        ax.set_title('Clusters')
+        st.pyplot(fig)
     
 
 def main():
@@ -91,10 +84,12 @@ def main():
         st.write("Uploaded file:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
+        st.subheader("Cleansing data")
         cleaned_df = None
         # Clean data
         if button('Cleansing data',key='Cleansing data'):
             cleaned_df = clean_data(df)
+            st.subheader("Clustering model")
             # clustering
             if button('Run Clustering',key='Run Clustering'):
                 n_clusters = 0
@@ -103,8 +98,6 @@ def main():
                   remodeling(cleaned_df, n_clusters)
         else:    
             st.warning("Please cleansing data first.")
-
-
-            
+      
 if __name__ == '__main__':
     main()
