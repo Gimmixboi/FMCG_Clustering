@@ -82,16 +82,16 @@ def main():
         st.subheader("Cleansing data")
         cleaned_df = None
         # Clean data
-        if button('Clean it up!'):
+        if button('Clean it up!', key="button1"):
             cleaned_df = clean_data(df)
             st.subheader("Clustering model")
             # clustering
-            if button("Refine your clusters!"):
+            if button("Refine your clusters!", key="button2"):
                 n_clusters = 0
                 model, _ = run_clustering(cleaned_df, n_clusters)
                 st.subheader("Remodeling by suitable K-values")
                 # Remodeling
-                if button('Refine your clusters!'):
+                if button('Refine your clusters!', key="button3"):
                     remodeling(cleaned_df, n_clusters)
         else:   
             st.warning("Please cleansing data first.")
