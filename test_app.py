@@ -42,7 +42,7 @@ def run_clustering(cleaned_df, n_clusters):
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("📊 WCSS Graph for find proper K and re-modeling")
-        plt.figure(figsize=(4, 2))
+        plt.figure(figsize=(0.5, 0.5))
         ax.plot(range(2, 10), wcss)
         ax.set_title('The Elbow Method')
         ax.set_xlabel('Number of clusters')
@@ -52,12 +52,18 @@ def run_clustering(cleaned_df, n_clusters):
     
 def callback():
     st.session_state.button_clicked = True
+    
+def remodeling(cleaned_df, n_clusters):
+    st.write("Select Number of Clusters first")
+    n_clusters = st.slider("",2, 10, 2)
+    model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
+    model.fit(cleaned_df.values)
+    score = silhouette_score(cleaned_df, model.labels_)
+    st.write(f'Silhouette Score: {score:.2f}')
 
 def main():
     # อัพโหลดไฟล์ csv
     uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
-    st.subheader("Select Number of Clusters first")
-    n_clusters = st.slider("",2, 10, 2)
     # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
     if uploaded_file is None:
         st.write("Warning:")
@@ -74,8 +80,8 @@ def main():
             # clustering
             if st.button('Run Clustering'):
                 model, _ = run_clustering(cleaned_df, n_clusters)
-                score = silhouette_score(cleaned_df, model.labels_)
-                st.write(f'Silhouette Score: {score:.2f}')
+                if st.button('Remodeling'):
+                remodeling(cleaned_df, n_clusters):
         else:    
             st.warning("Please cleansing data first.")
 
