@@ -60,22 +60,17 @@ def main():
         st.write("Uploaded file:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
-        cleaned_df = None
         # Clean data
         if st.button('Cleansing data'):
             cleaned_df = clean_data(df)
-        else:
-            st.warning("Please cleansing data first.")
-
         # clustering
-        if st.button('Run Clustering'):
-            if cleaned_df is not None: # เพิ่มเงื่อนไขนี้เพื่อตรวจสอบว่า cleaned_df มีค่าหรือไม่
+            if st.button('Run Clustering'):
                 n_clusters = st.slider('Number of Clusters', 2, 10, 2)
                 model = run_clustering(cleaned_df, n_clusters)
                 score = silhouette_score(cleaned_df, model.labels_)
                 st.write(f'Silhouette Score: {score:.2f}')
-            else:
-                st.warning("Please cleansing data first.")
-            
+        else:
+            st.warning("Please cleansing data first.")
+  
 if __name__ == '__main__':
     main()
