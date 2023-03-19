@@ -60,8 +60,8 @@ def main():
 #         if st.button('Make data to clean🧹'):
      # clustering
     if st.button('Run Clustering'):
-        n_clusters = st.slider('Number of Clusters', 2, 10, 2)
-        score = run_clustering(data, n_clusters)
+        n_clusters = st.slider('Number of Clusters', 1, 10, 2)
+        score = run_clustering(df, n_clusters)
         st.write(f'Silhouette Score: {score:.2f}')
 
 
