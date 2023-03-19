@@ -91,7 +91,7 @@ def main():
             cleaned_df = clean_data(df)
             st.subheader("Clustering model")
             # clustering
-            if button("Discover the Hidden Patterns!',key='Run Clustering'):
+            if button('Discover the Hidden Patterns!',key='Run Clustering'):
                 n_clusters = 0
                 model, _ = run_clustering(cleaned_df, n_clusters)
                 if button('Refine your clusters!',key='Remodeling'):
