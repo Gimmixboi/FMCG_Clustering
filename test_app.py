@@ -59,17 +59,17 @@ def remodeling(cleaned_df, n_clusters):
         score = silhouette_score(cleaned_df, model.labels_)
         st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
         # สร้างตัวเลือก feature ที่เป็น checkbox
-        features = st.multiselect('Select features', cleaned_df.columns.tolist())
-        # กรองข้อมูลเฉพาะ feature ที่เลือก
-        filtered_df = cleaned_df[features]
-        # สร้างกราฟ
-        fig, ax = plt.subplots()
-        fig = plt.figure(figsize=(6, 4), dpi=150)
-        ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
-        ax.set_xlabel(features[0])
-        ax.set_ylabel(features[1])
-        ax.set_title('Clusters')
-        st.pyplot(fig)
+#         features = st.multiselect('Select features', cleaned_df.columns.tolist())
+#         # กรองข้อมูลเฉพาะ feature ที่เลือก
+#         filtered_df = cleaned_df[features]
+#         # สร้างกราฟ
+#         fig, ax = plt.subplots()
+#         fig = plt.figure(figsize=(6, 4), dpi=150)
+#         ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
+#         ax.set_xlabel(features[0])
+#         ax.set_ylabel(features[1])
+#         ax.set_title('Clusters')
+#         st.pyplot(fig)
     
 
 def main():
