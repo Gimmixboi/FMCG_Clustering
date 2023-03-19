@@ -65,7 +65,7 @@ def main():
             cleaned_df = clean_data(df)
             is_cleaned = True
         # clustering
-            if is_cleaned
+            if is_cleaned:
                 if st.button('Run Clustering'):
                     n_clusters = st.slider('Number of Clusters', 2, 10, 2)
                     model = run_clustering(cleaned_df, n_clusters)
