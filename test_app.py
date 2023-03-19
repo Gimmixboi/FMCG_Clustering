@@ -31,11 +31,12 @@ def clean_data(df):
         return cleaned_df
 
 def run_clustering(cleaned_df, n_clusters):
+#     cleaned_df = clean_data(df)
     with st.spinner("Program is Calculating,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-            model.fit(cleaned_df.values)
+            model.fit(df.values)
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("📊 WCSS Graph for find proper K and re-modeling")
@@ -45,7 +46,7 @@ def run_clustering(cleaned_df, n_clusters):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
-        return model,cleand_df
+        return model,cleaned_df
 
 def main():
     # อัพโหลดไฟล์ csv
@@ -61,16 +62,13 @@ def main():
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
         # Clean data
-#         cleaned_df = None
         if st.button('Cleansing data'):
             cleaned_df = clean_data(df)
         else:
-            st.warning("Please cleansing data.")
+            st.warning("Please cleansing data first.")
         # clustering
         if st.button('Run Clustering'):
-#             if cleaned_df is None:
-#             st.warning("Please cleansing data first.")
-#             else:
+
             n_clusters = st.slider('Number of Clusters', 2, 10, 2)
             model = run_clustering(cleaned_df, n_clusters)
 #             score = silhouette_score(cleaned_df, model.labels_)
