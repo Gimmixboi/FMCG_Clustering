@@ -52,7 +52,7 @@ def main():
     # อัพโหลดไฟล์ csv
     uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
     st.subheader("Select Number of Clusters first")
-    n_clusters = st.slider(2, 10, 2)
+    n_clusters = st.slider("",2, 10, 2)
     # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
     if uploaded_file is None:
         st.write("Warning:")
