@@ -27,7 +27,7 @@ def clean_data(df):
         st.write("Cleaned Dataset:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
-        cleaned_df = df
+        cleaned_df = df.copy()
         return cleaned_df
 
 def run_clustering(cleaned_df, n_clusters):
@@ -69,7 +69,7 @@ def main():
         if st.button('Run Clustering'):
 
             n_clusters = st.slider('Number of Clusters', 2, 10, 2)
-            model = run_clustering(cleaned_df, n_clusters)
+            model = run_clustering(cleaned_df.copy(), n_clusters)
 #             score = silhouette_score(cleaned_df, model.labels_)
 #             st.write(f'Silhouette Score: {score:.2f}')
             
