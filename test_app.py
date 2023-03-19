@@ -47,6 +47,9 @@ def run_clustering(cleaned_df, n_clusters):
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
         return model,cleaned_df
+    
+def callback():
+    st.session_state.button_clicked = True
 
 def main():
     # อัพโหลดไฟล์ csv
@@ -66,7 +69,7 @@ def main():
         # Clean data
         if "button_clicked" not in st.session_state:    
             st.session_state.button_clicked = False
-            if st.button('Cleansing data') or st.session_state.button_clicked:
+            if (st.button('Cleansing data',on_click=callback) or st.session_state.button_clicked):
                 cleaned_df = clean_data(df)
                 # clustering
                 if st.button('Run Clustering'):
