@@ -35,7 +35,7 @@ def run_clustering(df, n_clusters):
         wcss = []
         for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
-            model.fit(cleaned_df2.values)
+            model.fit(cleaned_df.values)
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         st.write("📊 WCSS Graph for find proper K and re-modeling")
@@ -45,7 +45,7 @@ def run_clustering(df, n_clusters):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
-        return model
+        return model,cleaned_df
 
 def main():
     # อัพโหลดไฟล์ csv
