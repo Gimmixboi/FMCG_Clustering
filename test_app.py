@@ -56,8 +56,7 @@ def remodeling(cleaned_df, n_clusters):
         score = silhouette_score(cleaned_df, model.labels_)
         st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
         # สร้างตัวเลือก feature ที่เป็น checkbox
-        features = st.multiselect('Select up to 2 features', cleaned_df.columns.tolist(), 
-        _key='feature_selection', default=cleaned_df.columns.tolist()[:2], max_value=2)
+        features = st.multiselect('Select up to 2 features', cleaned_df.columns.tolist(),key='feature_selection', default=cleaned_df.columns.tolist()[:2], max_value=2)
         # กรองข้อมูลเฉพาะ feature ที่เลือก
         filtered_df = cleaned_df[features]
         # สร้างกราฟ
