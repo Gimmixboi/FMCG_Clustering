@@ -6,6 +6,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
+
 if "button_clicked" not in st.session_state:    
     st.session_state.button_clicked = False
 
