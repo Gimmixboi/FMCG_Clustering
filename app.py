@@ -69,7 +69,7 @@ def remodeling(cleaned_df, n_clusters):
  
 def main():
     # อัพโหลดไฟล์ csv
-    uploaded_file = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
+    uploaded_file = st.file_uploader("Upload CSV file", type=["csv", "xlsx"])
     # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
     if uploaded_file is None:
         st.write("Warning:")
