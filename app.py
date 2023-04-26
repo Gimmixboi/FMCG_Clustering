@@ -30,7 +30,7 @@ def clean_data(df):
 
 def run_clustering(cleaned_df, n_clusters):
     st.subheader("📊 WCSS Graph for find proper K")
-    with st.spinner("Program is Clustering,  ⏰ Please wait..."):
+    with st.spinner("The data is clustering,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
