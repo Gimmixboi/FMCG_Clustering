@@ -29,7 +29,7 @@ def clean_data(df):
         return cleaned_df
 
 def run_clustering(cleaned_df, n_clusters):
-    with st.spinner("Program is Calculating,  ⏰ Please wait..."):
+    with st.spinner("Program is Clustering,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++', random_state=0)
