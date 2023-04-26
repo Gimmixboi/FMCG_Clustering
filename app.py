@@ -22,7 +22,7 @@ def clean_data(df):
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
-#         st.write("Cleaned Dataset:")
+        st.write("Cleaned Dataset:")
         st.write(df.head())
         st.write(f"Data have {df.shape[0]} rows")
         cleaned_df = df
@@ -68,7 +68,7 @@ def remodeling(cleaned_df, n_clusters):
 #         st.balloons()
  
 def main():
-    tab1, tab2, tab3 = st.tabs(["Upload file", "Data Preparation & Result of Clustering", "Elbow graph"])
+    tab1, tab2, tab3 = st.tabs(["Upload file", "Result of Clustering", "Evaluation"])
     with tab1:
         # อัพโหลดไฟล์ csv
         uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
@@ -83,26 +83,21 @@ def main():
             st.write(df.head(10))
             st.write(f"Data have total {df.shape[0]} rows")
 
-  
     with tab2:
-        st.subheader("Cleaned Dataset:")
-        cleaned_df = None
-        if cleaned_df is None:
-            if uploaded_file is not None: 
-               cleaned_df = clean_data(df)
-               n_clusters = 0
-               model, _ = run_clustering(cleaned_df, n_clusters)
-            else: 
-               st.warning("Please cleansing data first.")
-#     with tab3:
-
-#         st.subheader("Result")
-#         cleaned_df = None
-#         if cleaned_df is None:
-#             if uploaded_file is not None: 
-#                cleaned_df = clean_data(df)
-#             else: 
-#                st.warning("Please cleansing data first.")
+#         st.subheader("Cleaned Dataset:")
+        if uploaded_file is not None: 
+           cleaned_df = clean_data(df)
+           n_clusters = 0
+           model, _ = run_clustering(cleaned_df, n_clusters)
+        else: 
+           st.warning("Please upload data first.")
+        
+    with tab3: 
+        st.subheader("Re-modeling")
+        if uploaded_file is not None: 
+           remodeling(cleaned_df, n_clusters)
+        else: 
+           st.warning("Please upload data first.")
 
             
 
