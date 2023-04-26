@@ -76,20 +76,23 @@ def main():
         if uploaded_file is None:
             st.write("Warning:")
             st.warning("Please upload a file.")
-            cleaned_df = None
+#             cleaned_df = None
         else: 
             df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
             st.write("Uploaded file:")
             st.write(df.head(10))
             st.write(f"Data have {df.shape[0]} rows")
+#             cleaned_df = clean_data(df)
   
     with tab2:
         st.subheader("Cleansing data")
-        if cleaned_df is None:
-            st.warning("Please cleansing data first.")
-        else:   
-            # Clean data
-            cleaned_df = clean_data(df)
+#         if cleaned_df is not None:
+        st.warning("Please cleansing data first.")
+        cleaned_df = clean_data(df)
+        
+#         else:   
+#             # Clean data
+#             cleaned_df = clean_data(df)
             
 
 if __name__ == '__main__':
