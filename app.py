@@ -68,33 +68,28 @@ def remodeling(cleaned_df, n_clusters):
 #         st.balloons()
  
 def main():
-    # อัพโหลดไฟล์ csv
-    uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
-    # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
-    if uploaded_file is None:
-        st.write("Warning:")
-        st.warning("Please upload a file.")
-    else: 
-        df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
-        st.write("Uploaded file:")
-        st.write(df.head())
-        st.write(f"Data have {df.shape[0]} rows")
+    tab1, tab2, tab3 = st.tabs(["Upload file", "Clean data", "Owl"])
+    with tab1:
+        # อัพโหลดไฟล์ csv
+        uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+        # อ่านไฟล์ csv และแสดงตัวอย่างข้อมูล
+        if uploaded_file is None:
+            st.write("Warning:")
+            st.warning("Please upload a file.")
+        else: 
+            df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
+            st.write("Uploaded file:")
+            st.write(df.head())
+            st.write(f"Data have {df.shape[0]} rows")
+    with tab2:
         st.subheader("Cleansing data")
         cleaned_df = None
         # Clean data
         if button('Clean it up!', key="button1"):
             cleaned_df = clean_data(df)
-            st.subheader("Clustering model")
-            # clustering
-            if button("Discover the Hidden Patterns!", key="button2"):
-                n_clusters = 0
-                model, _ = run_clustering(cleaned_df, n_clusters)
-                st.subheader("Remodeling by suitable K-values")
-                # Remodeling
-                if button('Refine your clusters!', key="button3"):
-                    remodeling(cleaned_df, n_clusters)
         else:   
             st.warning("Please cleansing data first.")
+            
 
 if __name__ == '__main__':
     main()
