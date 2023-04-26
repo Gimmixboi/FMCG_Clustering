@@ -68,7 +68,7 @@ def remodeling(cleaned_df, n_clusters):
 #         st.balloons()
  
 def main():
-    tab1, tab2, tab3 = st.tabs(["Upload file", "Data Preparation", "Result of Model"])
+    tab1, tab2, tab3 = st.tabs(["Upload file", "Data Preparation & Result of Clustering", "Elbow graph"])
     with tab1:
         # อัพโหลดไฟล์ csv
         uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
@@ -79,9 +79,9 @@ def main():
 
         else: 
             df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
-            st.write("Uploaded file:")
+            st.write("Example uploaded file:")
             st.write(df.head(10))
-            st.write(f"Data have {df.shape[0]} rows")
+            st.write(f"Data have total {df.shape[0]} rows")
 
   
     with tab2:
@@ -90,11 +90,12 @@ def main():
         if cleaned_df is None:
             if uploaded_file is not None: 
                cleaned_df = clean_data(df)
+               n_clusters = 0
+               model, _ = run_clustering(cleaned_df, n_clusters)
             else: 
                st.warning("Please cleansing data first.")
-    with tab3:
-      n_clusters = 0
-      model, _ = run_clustering(cleaned_df, n_clusters)
+#     with tab3:
+
 #         st.subheader("Result")
 #         cleaned_df = None
 #         if cleaned_df is None:
