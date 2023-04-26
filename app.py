@@ -86,13 +86,12 @@ def main():
   
     with tab2:
         st.subheader("Cleansing data")
-#         cleaned_df = None
-#         if cleaned_df is None:
-#             st.warning("Please cleansing data first.")
-#                 if 
-        cleaned_df = clean_data(df)
-        
-#         else:   
+        cleaned_df = None
+        if cleaned_df is None:
+            if uploaded_file is not None: 
+               cleaned_df = clean_data(df)
+            else: 
+               st.warning("Please cleansing data first.")
 #             # Clean data
 #             cleaned_df = clean_data(df)
             
