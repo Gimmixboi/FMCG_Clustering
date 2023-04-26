@@ -94,7 +94,10 @@ def main():
         
     with tab3: 
         st.subheader("Re-modeling")
-        if uploaded_file is not None: 
+        
+        if uploaded_file is not None:
+           st.markdown("Remark : เลือกจำนวน K จากกราฟ Elbow ที่ได้ ที่ทำให้ SSE ลดลงลงช้ามากที่สุด (หรือจุดศอก) ")
+           st.markdown("ซึ่งจะเป็นจำนวน K ที่เหมาะสมสำหรับการแบ่งกลุ่มของข้อมูล ")
            remodeling(cleaned_df, n_clusters)
         else: 
            st.warning("Please upload data first.")
