@@ -96,8 +96,9 @@ def main():
         st.subheader("Re-modeling")
         
         if uploaded_file is not None:
-           st.markdown("Remark : เลือกจำนวน K จากกราฟ Elbow ที่ได้ ที่ทำให้ SSE ลดลงลงช้ามากที่สุด (หรือจุดศอก) ")
-           st.markdown("ซึ่งจะเป็นจำนวน K ที่เหมาะสมสำหรับการแบ่งกลุ่มของข้อมูล ")
+           st.markdown("**:blue[Remark : Choose K from the Elbow graph that results in the slowest decrease in SSE (elbow point)]** ")
+           st.markdown("**:blue[This will be the appropriate number of K for clustering the data.]** ")
+           st.divider()
            remodeling(cleaned_df, n_clusters)
         else: 
            st.warning("Please upload data first.")
