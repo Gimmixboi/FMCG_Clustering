@@ -48,7 +48,7 @@ def run_clustering(cleaned_df, n_clusters):
 def remodeling(cleaned_df, n_clusters):
     st.write("Select Number of Clusters first")
 #     n_clusters = st.slider("",2, 10, 2)
-    number = st.number_input('Insert a number',min_value=2,value=int)
+    number = st.number_input('Insert a number',min_value=2,max_value=8,value=2)
     with st.spinner("Remodeling,  ⏰ Please wait..."):
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
