@@ -33,7 +33,7 @@ def run_clustering(cleaned_df, n_clusters):
     with st.spinner("The data is clustering,  ⏰ Please wait..."):
         wcss = []
         for i in range(2, 10):
-            model = KMeans(n_clusters=i, init='k-means++', random_state=0)
+            model = KMeans(n_clusters=i, init='k-means++')
             model.fit(cleaned_df.values)
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
@@ -47,12 +47,13 @@ def run_clustering(cleaned_df, n_clusters):
     
 def remodeling(cleaned_df, n_clusters):
     st.write("Select Number of Clusters first")
-    n_clusters = st.slider("",2, 10, 2)
+#     n_clusters = st.slider("",2, 10, 2)
+    number = st.number_input('Insert a number')
     with st.spinner("Remodeling,  ⏰ Please wait..."):
-        model = KMeans(n_clusters=n_clusters, init='k-means++', random_state=0)
-        model.fit(cleaned_df.values)
-        score = silhouette_score(cleaned_df, model.labels_)
-        st.write(f'Silhouette Score: {score:.2f}','with K=',n_clusters)
+        model2 = KMeans(n_clusters=number, init='k-means++')
+        model2.fit(cleaned_df.values)
+        score = silhouette_score(cleaned_df, model2.labels_)
+        st.markdown(f'Silhouette Score: {score:.2f}','with proper K =',number)
         # สร้างตัวเลือก feature ที่เป็น checkbox
         features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
         # กรองข้อมูลเฉพาะ feature ที่เลือก
