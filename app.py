@@ -24,7 +24,7 @@ def clean_data(df):
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
         st.write("Cleaned Dataset:")
         st.write(df.head())
-        st.write(f"Data have {df.shape[0]} rows")
+        st.write(f"Cleaned Data have total {df.shape[0]} rows")
         cleaned_df = df
         return cleaned_df
 
@@ -46,14 +46,17 @@ def run_clustering(cleaned_df, n_clusters):
         return model,cleaned_df
     
 def remodeling(cleaned_df, n_clusters):
-    st.write("Select Number of Clusters first")
+    st.write("Select Proper Number of Clusters first to re-model")
+    st.markdown("**:blue[Remark : Choose K from the Elbow graph that results in the slowest decrease in SSE (elbow point)]** ")
+    st.markdown("**:blue[This will be the appropriate number of K for clustering the data.]** ")
+    st.divider()
 #     n_clusters = st.slider("",2, 10, 2)
-    number = st.number_input('Insert a number',min_value=2,max_value=8,value=2)
+    number = st.number_input(min_value=2,max_value=8,value=2)
     with st.spinner("Remodeling,  ⏰ Please wait..."):
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
         score = silhouette_score(cleaned_df, model2.labels_)
-        st.markdown(f'Silhouette Score: {score:.2f}','with proper K =',number)
+        st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
         # สร้างตัวเลือก feature ที่เป็น checkbox
         features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
         # กรองข้อมูลเฉพาะ feature ที่เลือก
@@ -97,11 +100,7 @@ def main():
         
     with tab3: 
         st.subheader("Re-modeling")
-        
         if uploaded_file is not None:
-           st.markdown("**:blue[Remark : Choose K from the Elbow graph that results in the slowest decrease in SSE (elbow point)]** ")
-           st.markdown("**:blue[This will be the appropriate number of K for clustering the data.]** ")
-           st.divider()
            remodeling(cleaned_df, n_clusters)
         else: 
            st.warning("Please upload data first.")
