@@ -29,6 +29,7 @@ def clean_data(df):
         return cleaned_df
 
 def run_clustering(cleaned_df, n_clusters):
+    st.divider()
     st.subheader("📊 WCSS Graph for find proper K")
     with st.spinner("The data is clustering,  ⏰ Please wait..."):
         wcss = []
@@ -91,7 +92,6 @@ def main():
     with tab2:
 #         st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
-           st.divider()
            cleaned_df = clean_data(df)
            n_clusters = 0
            model, _ = run_clustering(cleaned_df, n_clusters)
