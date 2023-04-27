@@ -52,7 +52,7 @@ def remodeling(cleaned_df, n_clusters):
     st.markdown("**:blue[This will be the appropriate number of K for clustering the data.]** ")
     st.divider()
 #     n_clusters = st.slider("",2, 10, 2)
-    number = st.number_input(min_value=2,max_value=8,value=2)
+    number = st.number_input("",min_value=2,max_value=8,value=2)
     with st.spinner("Remodeling,  ⏰ Please wait..."):
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
