@@ -91,10 +91,10 @@ def main():
     with tab2:
 #         st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
-#            cleaned_df = clean_data(df)
+           cleaned_df = clean_data(df)
 #            n_clusters = 0
 #            model, _ = 
-             run_clustering(cleaned_df)
+           run_clustering(cleaned_df)
         else: 
            st.warning("Please upload data first.")
         
