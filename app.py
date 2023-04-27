@@ -28,7 +28,7 @@ def clean_data(df):
         cleaned_df = df
         return cleaned_df
 
-def run_clustering(cleaned_df, n_clusters):
+def run_clustering(cleaned_df):
     st.divider()
     st.subheader("📊 WCSS Graph for find proper K")
     with st.spinner("The data is clustering,  ⏰ Please wait..."):
@@ -44,7 +44,7 @@ def run_clustering(cleaned_df, n_clusters):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
-        return model,cleaned_df
+#         return model,cleaned_df
     
 def remodeling(cleaned_df):
     number = st.number_input("Select Proper Number of Clusters first to re-model",min_value=2,max_value=8,value=2)
@@ -91,9 +91,10 @@ def main():
     with tab2:
 #         st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
-           cleaned_df = clean_data(df)
-           n_clusters = 0
-           model, _ = run_clustering(cleaned_df, n_clusters)
+#            cleaned_df = clean_data(df)
+#            n_clusters = 0
+#            model, _ = 
+             run_clustering(cleaned_df)
         else: 
            st.warning("Please upload data first.")
         
