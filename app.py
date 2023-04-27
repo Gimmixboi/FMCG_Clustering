@@ -46,13 +46,12 @@ def run_clustering(cleaned_df, n_clusters):
         st.pyplot(fig)
         return model,cleaned_df
     
-def remodeling(cleaned_df, n_clusters):
-    st.write("Select Proper Number of Clusters first to re-model")
+def remodeling(cleaned_df):
+    number = st.number_input("Select Proper Number of Clusters first to re-model",min_value=2,max_value=8,value=2)
     st.markdown("**:blue[Remark : Choose K from the Elbow graph that results in the slowest decrease in SSE (elbow point)]** ")
     st.markdown("**:blue[This will be the appropriate number of K for clustering the data.]** ")
     st.divider()
 #     n_clusters = st.slider("",2, 10, 2)
-    number = st.number_input("",min_value=2,max_value=8,value=2)
     with st.spinner("Remodeling,  ⏰ Please wait..."):
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
@@ -101,7 +100,7 @@ def main():
     with tab3: 
         st.subheader("Re-modeling")
         if uploaded_file is not None:
-           remodeling(cleaned_df, n_clusters)
+           remodeling(cleaned_df)
         else: 
            st.warning("Please upload data first.")
 
