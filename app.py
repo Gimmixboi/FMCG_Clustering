@@ -48,7 +48,7 @@ def run_clustering(cleaned_df, n_clusters):
 def remodeling(cleaned_df, n_clusters):
     st.write("Select Number of Clusters first")
 #     n_clusters = st.slider("",2, 10, 2)
-    number = st.number_input('Insert a number')
+    number = st.number_input('Insert a number',min_value=2,value=int)
     with st.spinner("Remodeling,  ⏰ Please wait..."):
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
@@ -80,6 +80,7 @@ def main():
 
         else: 
             df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
+            st.divider()
             st.write("Example uploaded file:")
             st.write(df.head(10))
             st.write(f"Data have total {df.shape[0]} rows")
@@ -87,6 +88,7 @@ def main():
     with tab2:
 #         st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
+           st.divider()
            cleaned_df = clean_data(df)
            n_clusters = 0
            model, _ = run_clustering(cleaned_df, n_clusters)
