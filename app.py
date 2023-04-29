@@ -55,13 +55,18 @@ def remodeling(cleaned_df):
     with st.spinner("Remodeling,  ⏰ Please wait..."):
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
+        st.subheader("Evaluation")
         score = silhouette_score(cleaned_df, model2.labels_)
         st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
-        # สร้างตัวเลือก feature ที่เป็น checkbox
-        features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
-        # กรองข้อมูลเฉพาะ feature ที่เลือก
-        filtered_df = cleaned_df[features]
-        # สร้างกราฟ
+        
+def result(cleaned_df):        
+    cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
+    st.write(cleaned_df)    
+# สร้างตัวเลือก feature ที่เป็น checkbox
+    features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
+    # กรองข้อมูลเฉพาะ feature ที่เลือก
+    filtered_df = cleaned_df[features]
+    # สร้างกราฟ
 #         fig, ax = plt.subplots()
 #         fig = plt.figure(figsize=(6, 4), dpi=150)
 #         ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
@@ -69,10 +74,11 @@ def remodeling(cleaned_df):
 #         ax.set_ylabel(features[1])
 #         ax.set_title('Clusters')
 #         st.pyplot(fig)
-#         st.balloons()
+#         st.balloons()      
+    
  
 def main():
-    tab1, tab2, tab3 = st.tabs(["Upload file", "Result of Clustering", "Evaluation"])
+    tab1, tab2, tab3,tab4 = st.tabs(["Upload file", "Result of Clustering", "Evaluation","Final Result"])
     with tab1:
         # อัพโหลดไฟล์ csv
         uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
@@ -102,6 +108,12 @@ def main():
         st.subheader("Re-modeling")
         if uploaded_file is not None:
            remodeling(cleaned_df)
+        else: 
+           st.warning("Please upload data first.")
+    with tab4: 
+        st.subheader("Date frame labeled : ")
+        if uploaded_file is not None:
+           result(cleaned_df)
         else: 
            st.warning("Please upload data first.")
 
