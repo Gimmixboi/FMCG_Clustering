@@ -7,3 +7,4 @@ scikit-learn==1.2.2
 streamlit==1.21.0
 streamlit-extras==0.2.5
 seaborn==0.11.2
+numpy
