@@ -52,6 +52,7 @@ def remodeling(cleaned_df):
     st.markdown("**:blue[This will be the appropriate number of K for clustering the data.]** ")
     st.divider()
     with st.spinner("Remodeling,  ⏰ Please wait..."):
+        cleaned_df, le = cleaned_df
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
         score = silhouette_score(cleaned_df, model2.labels_)
