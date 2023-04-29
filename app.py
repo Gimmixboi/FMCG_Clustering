@@ -48,7 +48,7 @@ def run_clustering(cleaned_df):
         ax1.set_xlabel('Number of clusters')
         ax1.set_ylabel('WCSS')
         pct_change = 100 * (np.diff(wcss) / wcss[:-1])
-        for i, (x, y) in enumerate(zip(range(2, 10), wcss)):
+        for i, (x, y) in enumerate(zip(range(2, 8), wcss)):
             ax1.annotate(f"{i+2}\n({pct_change[i]:.1f}%)", xy=(x, y), xytext=(x+0.1, y+0.1), fontsize=8)
         st.pyplot(fig)
   
