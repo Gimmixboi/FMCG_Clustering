@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import LabelEncoder
@@ -99,7 +100,7 @@ def result(cleaned_df, le, df, cluster_labels):
     st.pyplot(fig)
     
 def main():
-    tab1, tab2, tab3,tab4 = st.tabs(["Upload file", "Result of Clustering", "Evaluation","🔮Final Result"])
+    tab1, tab2, tab3,tab4 = st.tabs(["Upload file", "WCSS Graph", "Evaluation","🔮Final Result"])
     with tab1:
         # อัพโหลดไฟล์ csv
         uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
