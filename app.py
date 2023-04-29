@@ -61,7 +61,8 @@ def remodeling(cleaned_df):
     return cleaned_df,cleaned_df.assign(cluster_labels=model2.labels_)
         
 def result(cleaned_df, cluster_labels):        
-    st.write(cleaned_df)    
+    labeldf = cleaned_df.assign(cluster_labels=model2.labels_)
+    st.write(labeldf.head(30))   
 # สร้างตัวเลือก feature ที่เป็น checkbox
     features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
     # กรองข้อมูลเฉพาะ feature ที่เลือก
