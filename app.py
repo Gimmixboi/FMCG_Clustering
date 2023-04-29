@@ -27,7 +27,7 @@ def clean_data(df):
         st.write(df.head(10))
         st.write(f"Cleaned Data have total {df.shape[0]} rows")
         cleaned_df = df
-        return cleaned_df
+        return cleaned_df,le
 
 def run_clustering(cleaned_df):
     st.divider()
@@ -59,7 +59,7 @@ def remodeling(cleaned_df):
         st.write(f'Silhouette Score: **:red[{score:.2f}]**','with proper K =',number)
     return cleaned_df,model2.labels_
         
-def result(cleaned_df, cluster_labels):        
+def result(cleaned_df, cluster_labels,le):        
     labeldf = cleaned_df.assign(cluster_labels=cluster_labels)
     st.write(labeldf.sample(50))   
 
