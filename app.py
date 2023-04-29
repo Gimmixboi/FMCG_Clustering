@@ -57,12 +57,10 @@ def remodeling(cleaned_df):
         score = silhouette_score(cleaned_df, model2.labels_)
         st.subheader("Evaluation")
         st.write(f'Silhouette Score: **:red[{score:.2f}]**','with proper K =',number)
-#         cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
-#         cluster_labels=model2.labels_
-    return cleaned_df,cleaned_df.assign(cluster_labels=model2.labels_)
+    return cleaned_df,model2.labels_
         
 def result(cleaned_df, cluster_labels):        
-    labeldf = cleaned_df.assign(cluster_labels)
+    labeldf = cleaned_df.assign(cluster_labels=cluster_labels)
     st.write(labeldf.head(30))   
 
     # สร้างตัวเลือก feature ที่เป็น checkbox
@@ -123,7 +121,7 @@ def main():
     with tab3: 
         st.subheader("Re-modeling")
         if uploaded_file is not None:
-           model2, cluster_labels = remodeling(cleaned_df)
+           cleaned_df, cluster_labels = remodeling(cleaned_df)
         else: 
            st.warning("Please upload data first.")
         
