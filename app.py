@@ -75,6 +75,7 @@ def result(cleaned_df, cluster_labels):
     # สร้างกราฟ
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
     # แสดง scatterplot ของ 2 features ที่เลือก
+    le = LabelEncoder()
     x = le.inverse_transform(filtered_df[features[0]])
     y = le.inverse_transform(filtered_df[features[1]])
     sns.scatterplot(data=pca_data, x=x, y=y, hue=cluster_labels, ax=ax, palette='deep')
