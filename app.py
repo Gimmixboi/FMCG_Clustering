@@ -17,6 +17,8 @@ def clean_data(df):
         df.dropna(inplace=True)
         df.drop_duplicates(inplace=True)
         df.drop(['CustomerID','Document Date'], axis=1,inplace=True)
+        ss = StandardScaler()
+        df = pd.DataFrame(ss.fit_transform(df))
         le = LabelEncoder()
         df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
         df['Channel'] = le.fit_transform(df['Channel'])
@@ -57,6 +59,7 @@ def remodeling(cleaned_df):
         score = silhouette_score(cleaned_df, model2.labels_)
         st.subheader("Evaluation")
         st.write(f'Silhouette Score: **:red[{score:.2f}]**','with proper K =',number)
+        st.markdown(":blue[Silhouette score of 0 means our model did not work very well ,but the best can go upto 1.] ")
     return cleaned_df,model2.labels_
         
 def result(cleaned_df, cluster_labels,le):        
