@@ -36,7 +36,7 @@ def run_clustering(cleaned_df):
         wcss = []
         for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++')
-            model.fit(cleaned_df.values)
+            model.fit(cleaned_df[0].values)
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         plt.figure(figsize=(6, 4), dpi=150)
@@ -105,8 +105,8 @@ def main():
     with tab2:
         st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
-           cleaned_df = clean_data(df)
-           run_clustering(cleaned_df)
+           cleaned_df,le = clean_data(df)
+           run_clustering((cleaned_df,))
         else: 
            st.warning("Please upload data first.")
         
