@@ -77,11 +77,11 @@ def result(cleaned_df, le, df, cluster_labels):
     ax3.set_title("Labeled Histogram")
     for i, v in enumerate(labeldf['cluster_labels'].unique()):
         count = labeldf[labeldf['cluster_labels']==v]['cluster_labels'].count()
-        ax3.text(i, count, str(count), ha='center', fontsize=10, fontweight='bold')
+        ax3.text(i, count+0.5, str(count), ha='center', fontsize=10, fontweight='bold')
     st.pyplot(fig2)
     st.divider()
 
-    st.subheader('Clustering Results')
+    st.subheader('Clustering Graph')
     features = st.multiselect('Select up to 2 features', options=df.columns.tolist(), key='feature_selection', default=df.columns.tolist()[:2],max_selections=2)
     filtered_df = df[features]
     pca = PCA(n_components=2)
