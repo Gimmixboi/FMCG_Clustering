@@ -24,12 +24,12 @@ def clean_data(df):
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
-        ss = StandardScaler()
-        df = pd.DataFrame(ss.fit_transform(df))
         st.write(df.head(10))
         st.write(f"Cleaned Data have total {df.shape[0]} rows")
+        ss = StandardScaler()
+        df = pd.DataFrame(ss.fit_transform(df))
         cleaned_df = df
-        return cleaned_df,le
+        return cleaned_df,le,df
 
 def run_clustering(cleaned_df):
     st.divider()
@@ -62,8 +62,8 @@ def remodeling(cleaned_df):
         st.markdown(":blue[Silhouette score of 0 means our model did not work very well ,but the best can go upto 1.] ")
     return cleaned_df,model2.labels_
         
-def result(cleaned_df, cluster_labels,le):        
-    labeldf = cleaned_df.assign(cluster_labels=cluster_labels)
+def result(cleaned_df, cluster_labels,le,df):        
+    labeldf = df.assign(cluster_labels=cluster_labels)
     st.write(labeldf.sample(50))   
 
     # สร้างตัวเลือก feature ที่เป็น checkbox
