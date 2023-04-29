@@ -23,8 +23,7 @@ def clean_data(df):
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
-        st.write("Cleaned Dataset:")
-        st.write(df.head())
+        st.write(df)
         st.write(f"Cleaned Data have total {df.shape[0]} rows")
         cleaned_df = df
         return cleaned_df
@@ -54,13 +53,13 @@ def remodeling(cleaned_df):
     with st.spinner("Remodeling,  ⏰ Please wait..."):
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
-        st.subheader("Evaluation")
         score = silhouette_score(cleaned_df, model2.labels_)
+        st.subheader("Evaluation")
         st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
-    return model2
+        cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
+    return cleaned_df
         
-def result(cleaned_df,model2):        
-    cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
+def result(cleaned_df):        
     st.write(cleaned_df)    
 # สร้างตัวเลือก feature ที่เป็น checkbox
     features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
@@ -104,6 +103,7 @@ def main():
             st.write(f"Data have total {df.shape[0]} rows")
 
     with tab2:
+        st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
            cleaned_df = clean_data(df)
            run_clustering(cleaned_df)
@@ -120,8 +120,7 @@ def main():
     with tab4: 
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
-           model2 = remodeling(cleaned_df)
-           result(cleaned_df,model2)
+           result(cleaned_df)
         else: 
            st.warning("Please upload data first.")         
 
