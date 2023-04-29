@@ -74,28 +74,26 @@ def result(cleaned_df, le, df, cluster_labels):
     labeldf = labeldf.sort_values('cluster_labels')
     fig2, ax3 = plt.subplots(figsize=(14,10))
     sns.histplot(data=labeldf, x='cluster_labels', ax=ax3)
+    ax3.set_title("Labeled Histogram")
+    for i, v in enumerate(labeldf['cluster_labels'].unique()):
+        count = labeldf[labeldf['cluster_labels']==v]['cluster_labels'].count()
+        ax3.text(i, count, str(count), ha='center', fontsize=10, fontweight='bold')
     st.pyplot(fig2)
-    
-    # สร้างตัวเลือก feature ที่เป็น checkbox
-    features = st.multiselect('Select up to 2 features', options=df.columns.tolist(), key='feature_selection', default=df.columns.tolist()[:2],max_selections=2)
-    # กรองข้อมูลเฉพาะ feature ที่เลือก
-    filtered_df = df[features]
+    st.divider()
 
-    # ลดมิติข้อมูลด้วย PCA
+    st.subheader('Clustering Results')
+    features = st.multiselect('Select up to 2 features', options=df.columns.tolist(), key='feature_selection', default=df.columns.tolist()[:2],max_selections=2)
+    filtered_df = df[features]
     pca = PCA(n_components=2)
     pca_data = pca.fit_transform(filtered_df)
-
-    # สร้างกราฟ
+    
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-    # แสดง scatterplot ของ 2 features ที่เลือก
     x = le.inverse_transform(filtered_df[features[0]])
     y = le.inverse_transform(filtered_df[features[1]])
     sns.scatterplot(data=pca_data, x=x, y=y, hue=cluster_labels, ax=ax, palette='deep')
-    # กำหนดชื่อแกน x, y และชื่อกราฟ
     ax.set_xlabel(features[0])
     ax.set_ylabel(features[1])
-    ax.set_title('Clustering Results')
-    # แสดงกราฟ
+
     st.pyplot(fig)
     
 def main():
