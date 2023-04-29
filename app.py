@@ -59,13 +59,19 @@ def remodeling(cleaned_df):
         score = silhouette_score(cleaned_df, model2.labels_)
         st.subheader("Evaluation")
         st.write(f'Silhouette Score: **:red[{score:.2f}]**','with proper K =',number)
-        st.markdown(":blue[Remak: silhouette score of 0 means our model did not work very well ,but the best can go upto 1.] ")
+        st.markdown(":blue[Remak: silhouette score of 0 means our model did not work very well. The worse could be -1, but the best can go upto 1] ")
     return cleaned_df,model2.labels_
         
 def result(cleaned_df, le, df, cluster_labels):        
     labeldf = df.assign(cluster_labels=cluster_labels)
     st.write(labeldf.sample(50))   
 
+    cleaned_df['cluster_labels'] = cleaned_df['cluster_labels'].astype(str)
+    cleaned_df = cleaned_df.sort_values('cluster_labels')
+    fig2, ax2 = plt.subplots(figsize=(14,10))
+    sns.histplot(data=cleaned_df, x='cluster_labels', ax=ax2)
+    st.pyplot(fig2)
+    
     # สร้างตัวเลือก feature ที่เป็น checkbox
     features = st.multiselect('Select up to 2 features', options=df.columns.tolist(), key='feature_selection', default=df.columns.tolist()[:2],max_selections=2)
     # กรองข้อมูลเฉพาะ feature ที่เลือก
@@ -86,8 +92,8 @@ def result(cleaned_df, le, df, cluster_labels):
     ax.set_ylabel(features[1])
     ax.set_title('Clustering Results')
     # แสดงกราฟ
-    st.pyplot(fig)    
-
+    st.pyplot(fig)
+    
 def main():
     tab1, tab2, tab3,tab4 = st.tabs(["Upload file", "Result of Clustering", "Evaluation","🔮Final Result"])
     with tab1:
