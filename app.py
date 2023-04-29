@@ -56,19 +56,19 @@ def remodeling(cleaned_df):
         score = silhouette_score(cleaned_df, model2.labels_)
         st.subheader("Evaluation")
         st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
-        cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
-    return cleaned_df
+        cleaned_df2 = cleaned_df.assign(cluster_labels=model2.labels_)
+    return cleaned_df2,cluster_labels
         
-def result(cleaned_df):        
-    st.write(cleaned_df)    
+def result(ccleaned_df2,cluster_labels):        
+    st.write(cleaned_df2)    
 # สร้างตัวเลือก feature ที่เป็น checkbox
-    features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
+    features = st.multiselect('Select up to 2 features', options=cleaned_df2.columns.tolist(), key='feature_selection', default=cleaned_df2.columns.tolist()[:2])
     # กรองข้อมูลเฉพาะ feature ที่เลือก
-    filtered_df = cleaned_df[features]
+    filtered_df = cleaned_df2[features]
     # สร้างกราฟ
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
     # แสดง scatterplot ของ 2 features ที่เลือก
-    sns.scatterplot(data=cleaned_df, x=features[0], y=features[1], hue='cluster_labels', ax=ax, palette='deep')
+    sns.scatterplot(data=cleaned_df2, x=features[0], y=features[1], hue=cluster_labels, ax=ax, palette='deep')
     # กำหนดชื่อแกน x, y และชื่อกราฟ
     ax.set_xlabel(features[0])
     ax.set_ylabel(features[1])
@@ -120,7 +120,7 @@ def main():
     with tab4: 
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
-           result(cleaned_df)
+           result(cleaned_df2,cluster_labels)
         else: 
            st.warning("Please upload data first.")         
 
