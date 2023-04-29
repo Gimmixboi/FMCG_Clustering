@@ -57,9 +57,10 @@ def remodeling(cleaned_df):
         st.subheader("Evaluation")
         st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
         cleaned_df2 = cleaned_df.assign(cluster_labels=model2.labels_)
+        cluster_labels=model2.labels_
     return cleaned_df2,cluster_labels
         
-def result(ccleaned_df2,cluster_labels):        
+def result(cleaned_df2,cluster_labels):        
     st.write(cleaned_df2)    
 # สร้างตัวเลือก feature ที่เป็น checkbox
     features = st.multiselect('Select up to 2 features', options=cleaned_df2.columns.tolist(), key='feature_selection', default=cleaned_df2.columns.tolist()[:2])
