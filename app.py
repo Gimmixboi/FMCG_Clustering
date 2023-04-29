@@ -23,7 +23,7 @@ def clean_data(df):
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
-        st.write(df)
+        st.write(df.head(10))
         st.write(f"Cleaned Data have total {df.shape[0]} rows")
         cleaned_df = df
         return cleaned_df
@@ -60,7 +60,7 @@ def remodeling(cleaned_df):
         cluster_labels=model2.labels_
     return cleaned_df2,cluster_labels
         
-def result(cleaned_df2,cluster_labels):        
+def result():        
     st.write(cleaned_df2)    
 # สร้างตัวเลือก feature ที่เป็น checkbox
     features = st.multiselect('Select up to 2 features', options=cleaned_df2.columns.tolist(), key='feature_selection', default=cleaned_df2.columns.tolist()[:2])
@@ -121,7 +121,7 @@ def main():
     with tab4: 
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
-           result(cleaned_df2,cluster_labels)
+           result()
         else: 
            st.warning("Please upload data first.")         
 
