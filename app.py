@@ -26,9 +26,9 @@ def clean_data(df):
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
         st.write(df.head(10))
         st.write(f"Cleaned Data have total {df.shape[0]} rows")
-        ss = StandardScaler()
-        df = pd.DataFrame(ss.fit_transform(df))
         cleaned_df = df
+        ss = StandardScaler()
+        cleaned_df = pd.DataFrame(ss.fit_transform(cleaned_df))
         return cleaned_df,le,df
 
 def run_clustering(cleaned_df):
@@ -62,7 +62,7 @@ def remodeling(cleaned_df):
         st.markdown(":blue[Silhouette score of 0 means our model did not work very well ,but the best can go upto 1.] ")
     return cleaned_df,model2.labels_
         
-def result(cleaned_df, cluster_labels,le,df):        
+def result(cleaned_df, le, df, cluster_labels):        
     labeldf = df.assign(cluster_labels=cluster_labels)
     st.write(labeldf.sample(50))   
 
@@ -108,7 +108,7 @@ def main():
     with tab2:
         st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
-           cleaned_df,le = clean_data(df)
+           cleaned_df, le, df = clean_data(df)
            run_clustering(cleaned_df)
         else: 
            st.warning("Please upload data first.")
@@ -123,7 +123,7 @@ def main():
     with tab4: 
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
-           result(cleaned_df, cluster_labels,le)
+           result(cleaned_df, le, df, cluster_labels)
         else: 
            st.warning("Please upload data first.")         
 
