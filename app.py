@@ -120,7 +120,7 @@ def main():
     with tab4: 
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
-           result(cleaned_df, cluster_labels)
+           result(cleaned_df, cluster_labels,le)
         else: 
            st.warning("Please upload data first.")         
 
