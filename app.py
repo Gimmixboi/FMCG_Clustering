@@ -59,7 +59,7 @@ def remodeling(cleaned_df):
         score = silhouette_score(cleaned_df, model2.labels_)
         st.subheader("Evaluation")
         st.write(f'Silhouette Score: **:red[{score:.2f}]**','with proper K =',number)
-        st.markdown(":blue[Silhouette score of 0 means our model did not work very well ,but the best can go upto 1.] ")
+        st.markdown(":blue[Remak: silhouette score of 0 means our model did not work very well ,but the best can go upto 1.] ")
     return cleaned_df,model2.labels_
         
 def result(cleaned_df, le, df, cluster_labels):        
@@ -67,9 +67,9 @@ def result(cleaned_df, le, df, cluster_labels):
     st.write(labeldf.sample(50))   
 
     # สร้างตัวเลือก feature ที่เป็น checkbox
-    features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
+    features = st.multiselect('Select up to 2 features', options=df.columns.tolist(), key='feature_selection', default=df.columns.tolist()[:2],max_selections=2)
     # กรองข้อมูลเฉพาะ feature ที่เลือก
-    filtered_df = cleaned_df[features]
+    filtered_df = df[features]
 
     # ลดมิติข้อมูลด้วย PCA
     pca = PCA(n_components=2)
