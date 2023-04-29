@@ -44,20 +44,20 @@ def run_clustering(cleaned_df):
         ax.set_xlabel('Number of clusters')
         ax.set_ylabel('WCSS')
         st.pyplot(fig)
-#         return model,cleaned_df
+
     
 def remodeling(cleaned_df):
     number = st.number_input("Select Proper Number of Clusters first to re-model",min_value=2,max_value=8,value=2)
     st.markdown("**:blue[Remark : Choose K from the Elbow graph that results in the slowest decrease in SSE (elbow point)]** ")
     st.markdown("**:blue[This will be the appropriate number of K for clustering the data.]** ")
     st.divider()
-#     n_clusters = st.slider("",2, 10, 2)
     with st.spinner("Remodeling,  ⏰ Please wait..."):
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
         st.subheader("Evaluation")
         score = silhouette_score(cleaned_df, model2.labels_)
         st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
+    return model2
         
 def result(cleaned_df):        
     cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
@@ -110,8 +110,9 @@ def main():
            remodeling(cleaned_df)
         else: 
            st.warning("Please upload data first.")
+        
     with tab4: 
-        st.subheader("Date frame labeled : ")
+        st.subheader("labeled Date frame : ")
         if uploaded_file is not None:
            result(cleaned_df)
         else: 
