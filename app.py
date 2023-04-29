@@ -58,9 +58,9 @@ def remodeling(cleaned_df):
         st.subheader("Evaluation")
         score = silhouette_score(cleaned_df, model2.labels_)
         st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
-    return model2
+    return model2.labels_
         
-def result(cleaned_df,model2):        
+def result(cleaned_df,model2.labels_):        
     cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
     st.write(cleaned_df)    
 # สร้างตัวเลือก feature ที่เป็น checkbox
@@ -121,7 +121,7 @@ def main():
     with tab4: 
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
-           result(cleaned_df,model2)
+           result(cleaned_df,model2.labels_)
         else: 
            st.warning("Please upload data first.")
 
