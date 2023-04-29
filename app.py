@@ -36,7 +36,7 @@ def run_clustering(cleaned_df):
         wcss = []
         for i in range(2, 10):
             model = KMeans(n_clusters=i, init='k-means++')
-            model.fit(cleaned_df[0].values)
+            model.fit(cleaned_df.values)
             wcss.append(model.inertia_)
         fig, ax = plt.subplots()
         plt.figure(figsize=(6, 4), dpi=150)
