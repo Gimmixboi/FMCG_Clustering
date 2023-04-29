@@ -26,7 +26,7 @@ def clean_data(df):
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
         st.write(df.head(10))
         st.write(f"Cleaned Data have total {df.shape[0]} rows")
-        cleaned_df = df,
+        cleaned_df = df
         return cleaned_df,le
 
 def run_clustering(cleaned_df):
@@ -52,7 +52,6 @@ def remodeling(cleaned_df):
     st.markdown("**:blue[This will be the appropriate number of K for clustering the data.]** ")
     st.divider()
     with st.spinner("Remodeling,  ⏰ Please wait..."):
-        cleaned_df, le = cleaned_df
         model2 = KMeans(n_clusters=number, init='k-means++')
         model2.fit(cleaned_df.values)
         score = silhouette_score(cleaned_df, model2.labels_)
@@ -65,9 +64,9 @@ def result(cleaned_df, cluster_labels,le):
     st.write(labeldf.sample(50))   
 
     # สร้างตัวเลือก feature ที่เป็น checkbox
-    features = st.multiselect('Select up to 2 features', options=cleaned_df[0].columns.tolist(), key='feature_selection', default=cleaned_df[0].columns.tolist()[:2],max_selections=2)
+    features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
     # กรองข้อมูลเฉพาะ feature ที่เลือก
-    filtered_df = cleaned_df[0][features]
+    filtered_df = cleaned_df[features]
 
     # ลดมิติข้อมูลด้วย PCA
     pca = PCA(n_components=2)
@@ -76,8 +75,8 @@ def result(cleaned_df, cluster_labels,le):
     # สร้างกราฟ
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
     # แสดง scatterplot ของ 2 features ที่เลือก
-    x = le.inverse_transform(filtered_df[features[0]].values)
-    y = le.inverse_transform(filtered_df[features[1]].values)
+    x = le.inverse_transform(filtered_df[features[0]])
+    y = le.inverse_transform(filtered_df[features[1]])
     sns.scatterplot(data=pca_data, x=x, y=y, hue=cluster_labels, ax=ax, palette='deep')
     # กำหนดชื่อแกน x, y และชื่อกราฟ
     ax.set_xlabel(features[0])
