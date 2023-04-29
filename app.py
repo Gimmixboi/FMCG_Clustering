@@ -64,7 +64,7 @@ def result(cleaned_df, cluster_labels,le):
     st.write(labeldf.sample(50))   
 
     # สร้างตัวเลือก feature ที่เป็น checkbox
-    features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
+    features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2],max_selections=2)
     # กรองข้อมูลเฉพาะ feature ที่เลือก
     filtered_df = cleaned_df[features]
 
@@ -75,8 +75,8 @@ def result(cleaned_df, cluster_labels,le):
     # สร้างกราฟ
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
     # แสดง scatterplot ของ 2 features ที่เลือก
-    x = le.transform(filtered_df[features[0]])
-    y = le.transform(filtered_df[features[1]])
+    x = le.inverse_transform(filtered_df[features[0]].values)
+    y = le.inverse_transform(filtered_df[features[1]].values)
     sns.scatterplot(data=pca_data, x=x, y=y, hue=cluster_labels, ax=ax, palette='deep')
     # กำหนดชื่อแกน x, y และชื่อกราฟ
     ax.set_xlabel(features[0])
