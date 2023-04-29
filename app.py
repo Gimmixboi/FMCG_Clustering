@@ -55,7 +55,7 @@ def remodeling(cleaned_df):
         model2.fit(cleaned_df.values)
         score = silhouette_score(cleaned_df, model2.labels_)
         st.subheader("Evaluation")
-        st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
+        st.write(f'Silhouette Score: **:red[{score:.2f}]**','with proper K =',number)
 #         cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
 #         cluster_labels=model2.labels_
     return cleaned_df,cleaned_df.assign(cluster_labels=model2.labels_)
