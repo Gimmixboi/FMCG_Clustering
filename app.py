@@ -121,7 +121,8 @@ def main():
     with tab4: 
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
-           result()
+#            result()
+           st.write(cleaned_df2) 
         else: 
            st.warning("Please upload data first.")         
 
