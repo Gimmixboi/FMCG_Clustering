@@ -8,6 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 from streamlit_extras.stateful_button import button
+from sklearn.decomposition import PCA
 
 st.title("🎆Clustering Model with K-Means on Web-Application💻")
 
@@ -61,22 +62,29 @@ def remodeling(cleaned_df):
     return cleaned_df,cleaned_df.assign(cluster_labels=model2.labels_)
         
 def result(cleaned_df, cluster_labels):        
-    labeldf = cleaned_df.assign(cluster_labels=model2.labels_)
+    labeldf = cleaned_df.assign(cluster_labels)
     st.write(labeldf.head(30))   
-# สร้างตัวเลือก feature ที่เป็น checkbox
+
+    # สร้างตัวเลือก feature ที่เป็น checkbox
     features = st.multiselect('Select up to 2 features', options=cleaned_df.columns.tolist(), key='feature_selection', default=cleaned_df.columns.tolist()[:2])
     # กรองข้อมูลเฉพาะ feature ที่เลือก
     filtered_df = cleaned_df[features]
+
+    # ลดมิติข้อมูลด้วย PCA
+    pca = PCA(n_components=2)
+    pca_data = pca.fit_transform(filtered_df)
+
     # สร้างกราฟ
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
     # แสดง scatterplot ของ 2 features ที่เลือก
-    sns.scatterplot(data=cleaned_df, x=features[0], y=features[1], hue=cluster_labels, ax=ax, palette='deep')
+    sns.scatterplot(data=pca_data, x=pca_data[:,0], y=pca_data[:,1], hue=cluster_labels, ax=ax, palette='deep')
     # กำหนดชื่อแกน x, y และชื่อกราฟ
-    ax.set_xlabel(features[0])
-    ax.set_ylabel(features[1])
+#     ax.set_xlabel(features[0])
+#     ax.set_ylabel(features[1])
     ax.set_title('Clustering Results')
     # แสดงกราฟ
     st.pyplot(fig)
+
 #         fig, ax = plt.subplots()
 #         fig = plt.figure(figsize=(6, 4), dpi=150)
 #         ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
