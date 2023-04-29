@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import LabelEncoder
@@ -67,6 +68,15 @@ def result(cleaned_df,model2):
     # กรองข้อมูลเฉพาะ feature ที่เลือก
     filtered_df = cleaned_df[features]
     # สร้างกราฟ
+    fig, ax = plt.subplots(1, 1, figsize=(8, 6))
+    # แสดง scatterplot ของ 2 features ที่เลือก
+    sns.scatterplot(data=cleaned_df, x=features[0], y=features[1], hue='cluster_labels', ax=ax, palette='deep')
+    # กำหนดชื่อแกน x, y และชื่อกราฟ
+    ax.set_xlabel(features[0])
+    ax.set_ylabel(features[1])
+    ax.set_title('Clustering Results')
+    # แสดงกราฟ
+    st.pyplot(fig)
 #         fig, ax = plt.subplots()
 #         fig = plt.figure(figsize=(6, 4), dpi=150)
 #         ax.scatter(filtered_df.iloc[:, 0], filtered_df.iloc[:, 1], c=model.labels_)
@@ -78,7 +88,7 @@ def result(cleaned_df,model2):
     
  
 def main():
-    tab1, tab2, tab3,tab4 = st.tabs(["Upload file", "Result of Clustering", "Evaluation","Final Result"])
+    tab1, tab2, tab3,tab4 = st.tabs(["Upload file", "Result of Clustering", "Evaluation","🔮Final Result"])
     with tab1:
         # อัพโหลดไฟล์ csv
         uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
@@ -95,11 +105,8 @@ def main():
             st.write(f"Data have total {df.shape[0]} rows")
 
     with tab2:
-#         st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
            cleaned_df = clean_data(df)
-#            n_clusters = 0
-#            model, _ = 
            run_clustering(cleaned_df)
         else: 
            st.warning("Please upload data first.")
@@ -114,7 +121,7 @@ def main():
     with tab4: 
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
-           result(cleaned_df)
+           result(cleaned_df,model2)
         else: 
            st.warning("Please upload data first.")
 
