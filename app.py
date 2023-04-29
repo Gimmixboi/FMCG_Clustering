@@ -75,8 +75,8 @@ def result(cleaned_df, cluster_labels,le):
     # สร้างกราฟ
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
     # แสดง scatterplot ของ 2 features ที่เลือก
-    x = le.inverse_transform(filtered_df[features[0]])
-    y = le.inverse_transform(filtered_df[features[1]])
+    x = le.transform(filtered_df[features[0]])
+    y = le.transform(filtered_df[features[1]])
     sns.scatterplot(data=pca_data, x=x, y=y, hue=cluster_labels, ax=ax, palette='deep')
     # กำหนดชื่อแกน x, y และชื่อกราฟ
     ax.set_xlabel(features[0])
@@ -106,7 +106,7 @@ def main():
         st.subheader("Cleaned Dataset:")
         if uploaded_file is not None: 
            cleaned_df,le = clean_data(df)
-           run_clustering((cleaned_df,))
+           run_clustering(cleaned_df)
         else: 
            st.warning("Please upload data first.")
         
