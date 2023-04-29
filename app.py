@@ -17,8 +17,6 @@ def clean_data(df):
         df.dropna(inplace=True)
         df.drop_duplicates(inplace=True)
         df.drop(['CustomerID','Document Date'], axis=1,inplace=True)
-        ss = StandardScaler()
-        df = pd.DataFrame(ss.fit_transform(df))
         le = LabelEncoder()
         df['Bussiness model (B2B,B2C)'] = le.fit_transform(df['Bussiness model (B2B,B2C)'])
         df['Channel'] = le.fit_transform(df['Channel'])
@@ -26,6 +24,8 @@ def clean_data(df):
         df['Product_type'] = le.fit_transform(df['Product_type'])
         df['Order Quantity (Item)'] = df['Order Quantity (Item)'].str.replace(',', '').astype(int)
         df['Total Value'] = df['Total Value'].str.replace(',', '').astype(float).round().astype(int)
+        ss = StandardScaler()
+        df = pd.DataFrame(ss.fit_transform(df))
         st.write(df.head(10))
         st.write(f"Cleaned Data have total {df.shape[0]} rows")
         cleaned_df = df
