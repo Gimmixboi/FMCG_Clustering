@@ -47,12 +47,11 @@ def run_clustering(cleaned_df):
         ax1.set_title('The Elbow Method')
         ax1.set_xlabel('Number of clusters')
         ax1.set_ylabel('WCSS')
-        
-        ax2 = ax1.twinx()
-        ax2.plot(range(2, 10), np.round(100*(1 - np.array(wcss)/sum(wcss)), 2), color='red', marker='o')
-        ax2.set_ylabel('% of explained variance')
+        pct_change = 100 * (np.diff(wcss) / wcss[:-1])
+        for i, (x, y) in enumerate(zip(range(2, 10), wcss)):
+            ax1.annotate(f"{i+2}\n({pct_change[i]:.1f}%)", xy=(x, y), xytext=(x+0.1, y+0.1), fontsize=8)
         st.pyplot(fig)
-    
+  
 def remodeling(cleaned_df):
     number = st.number_input("Select Proper Number of Clusters first to re-model",min_value=2,max_value=8,value=2)
     st.markdown("**:blue[Remark : Choose K from the Elbow graph that results in the slowest decrease in SSE (elbow point)]** ")
