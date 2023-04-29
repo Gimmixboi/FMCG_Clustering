@@ -40,12 +40,16 @@ def run_clustering(cleaned_df):
             model = KMeans(n_clusters=i, init='k-means++')
             model.fit(cleaned_df.values)
             wcss.append(model.inertia_)
-        fig, ax = plt.subplots()
+        fig, ax1 = plt.subplots()
         plt.figure(figsize=(6, 4), dpi=150)
-        ax.plot(range(2, 10), wcss)
-        ax.set_title('The Elbow Method')
-        ax.set_xlabel('Number of clusters')
-        ax.set_ylabel('WCSS')
+        ax1.plot(range(2, 10), wcss)
+        ax1.set_title('The Elbow Method')
+        ax1.set_xlabel('Number of clusters')
+        ax1.set_ylabel('WCSS')
+        
+        ax2 = ax1.twinx()
+        ax2.plot(range(2, 10), np.round(100*(1 - np.array(wcss)/sum(wcss)), 2), color='red', marker='o')
+        ax2.set_ylabel('% of explained variance')
         st.pyplot(fig)
     
 def remodeling(cleaned_df):
@@ -64,12 +68,12 @@ def remodeling(cleaned_df):
         
 def result(cleaned_df, le, df, cluster_labels):        
     labeldf = df.assign(cluster_labels=cluster_labels)
-    st.write(labeldf.sample(50))   
+    st.write(labeldf.sample(30))   
 
-    cleaned_df['cluster_labels'] = cleaned_df['cluster_labels'].astype(str)
-    cleaned_df = cleaned_df.sort_values('cluster_labels')
-    fig2, ax2 = plt.subplots(figsize=(14,10))
-    sns.histplot(data=cleaned_df, x='cluster_labels', ax=ax2)
+    labeldf['cluster_labels'] = labeldf['cluster_labels'].astype(str)
+    labeldf = labeldf.sort_values('cluster_labels')
+    fig2, ax3 = plt.subplots(figsize=(14,10))
+    sns.histplot(data=labeldf, x='cluster_labels', ax=ax3)
     st.pyplot(fig2)
     
     # สร้างตัวเลือก feature ที่เป็น checkbox
