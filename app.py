@@ -59,7 +59,7 @@ def remodeling(cleaned_df):
         st.write(f'Silhouette Score: {score:.2f}','with proper K =',number)
     return model2
         
-def result(cleaned_df):        
+def result(cleaned_df,model2):        
     cleaned_df = cleaned_df.assign(cluster_labels=model2.labels_)
     st.write(cleaned_df)    
 # สร้างตัวเลือก feature ที่เป็น checkbox
@@ -112,7 +112,7 @@ def main():
            st.warning("Please upload data first.")
         
     with tab4: 
-        st.subheader("labeled Date frame : ")
+        st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
            result(cleaned_df)
         else: 
