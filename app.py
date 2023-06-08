@@ -137,7 +137,7 @@ def main():
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
            result(cleaned_df, le, df, cluster_labels)
-           csv = convert_df(cleaned_df)
+           csv = convert_df(labeldf)
            st.download_button(
            label="Download data as CSV",
            data=csv,
