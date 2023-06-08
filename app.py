@@ -51,6 +51,11 @@ def run_clustering(cleaned_df):
         for i, (x, y) in enumerate(zip(range(2, 8), wcss)):
             ax1.annotate(f"{i+2}\n({pct_change[i]:.1f}%)", xy=(x, y), xytext=(x+0.1, y+0.1), fontsize=8)
         st.pyplot(fig)
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
   
 def remodeling(cleaned_df):
     number = st.number_input("Select Proper Number of Clusters first to re-model",min_value=2,max_value=8,value=2)
@@ -132,6 +137,13 @@ def main():
         st.subheader("Labeled Date frame : ")
         if uploaded_file is not None:
            result(cleaned_df, le, df, cluster_labels)
+           csv = convert_df(cleaned_df)
+           st.download_button(
+           label="Download data as CSV",
+           data=csv,
+           file_name='Labeled data frame.csv',
+           mime='text/csv',
+           )
         else: 
            st.warning("Please upload data first.")         
 
